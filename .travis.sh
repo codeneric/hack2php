@@ -2,7 +2,7 @@
 set -ex
 hhvm --version
 
-composer install --ignore-platform-reqs
+hhvm composer.phar install --ignore-platform-reqs 
 
 # hh_client
 

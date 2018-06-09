@@ -29,15 +29,22 @@ final class HackToPHPTest extends \PHPUnit\Framework\TestCase  {
     return $files;
   }
   public function testPHPOnlyFeature(): void {
-    echo "glob files...";
+    $d = \dirname(\dirname(__FILE__)); 
+    $t = "$d/example-files/temp";  
+    if(!\file_exists($t))
+      \mkdir($t);  
+    
     $files = $this->rglob("example-files/*.php");
     $i = 0;
     echo \count($files)." hack files to compile...";
-    $d = \dirname(\dirname(__FILE__)); 
+    
     foreach ($files as $filename) {
-      $res = \exec("$d/bin/hack2php $filename | php -l"); 
+
+      // echo "Testing $filename...\n"; 
+      $tf = "temp_".\basename($filename); 
+      $res = \exec("$d/bin/hack2php $filename > $t/$tf && hhvm --temp-file -l $t/$tf");  
       expect($res)->toEqual(
-        "No syntax errors detected in -",
+        null, 
         "Syntax error in file $filename:\n$res",
       );
       // if ($i >= 10){

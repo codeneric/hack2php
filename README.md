@@ -1,4 +1,5 @@
 # hack2php
+[![Build Status](https://travis-ci.org/codeneric/hack2php.svg?branch=master)](https://travis-ci.org/codeneric/hack2php) 
 hack2php is a project which aims to implement a compiler to translate Hack files to PHP files. 
 This ability becomes useful when you have no control over the environment in which you code is supposed to run, but you still want to write your code in Hack.
 An example might be the development of WordPress plugins or themes. 

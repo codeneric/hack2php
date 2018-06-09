@@ -1,0 +1,2 @@
+sharedmem_dep_table_pow = 20
+sharedmem_hash_table_pow = 20 

@@ -519,6 +519,19 @@ final class HackToPHPLinter extends ASTLinter<EditableNode> {
         $node = $node->removeWhere(($n, $v) ==> $child === $n);
       }
 
+      if ($child instanceof LambdaExpression) {
+        $closure_vars = \codeneric\util\get_closure_variables($child);
+        $attributeSpec = $child->getSignature()->getCode();
+        $body = $child->getBody()->getCode();
+        $use = \count($closure_vars) > 0
+          ? 'use('.\implode(',', $closure_vars).')'
+          : '';
+        $code = "function $attributeSpec $use $body";
+        $sub_ast = $this->ast_from_code($code);
+        $node = $node->replace($child, $sub_ast);
+
+      }
+
 
     }
 
@@ -631,6 +644,7 @@ final class HackToPHPLinter extends ASTLinter<EditableNode> {
       $php = $this->interate_children($node, $parents, $php);
       return $php;
     }
+
 
     if ($node instanceof AnonymousFunctionUseClause) {
       $args = $node->getVariables();

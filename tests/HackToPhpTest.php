@@ -33,8 +33,9 @@ final class HackToPHPTest extends \PHPUnit\Framework\TestCase  {
     $files = $this->rglob("example-files/*.php");
     $i = 0;
     echo \count($files)." hack files to compile...";
+    $d = \dirname(\dirname(__FILE__)); 
     foreach ($files as $filename) {
-      $res = \exec("./bin/hack2php $filename | php -l"); 
+      $res = \exec("$d/bin/hack2php $filename | php -l"); 
       expect($res)->toEqual(
         "No syntax errors detected in -",
         "Syntax error in file $filename:\n$res",

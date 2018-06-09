@@ -5,6 +5,33 @@ hack2php is a project which aims to implement a compiler to translate Hack files
 This ability becomes useful when you have no control over the environment in which your code is supposed to run, but you still want to write your code in Hack.
 An example might be the development of WordPress plugins or themes. 
 
+This Hack code 
+```php
+<?hh //strict
+
+namespace codeneric\phmm\legacy\validate;
+use codeneric\phmm\legacy\blub;
+
+function blub(string $v): ?string {
+    return null;
+}
+```
+
+is transpiled to 
+
+```php
+<?php //strict
+namespace codeneric\phmm\legacy\validate;
+use \codeneric\phmm\legacy\blub;
+
+function blub($v){
+    return null;
+}
+```
+
+
+
+
 # Disclaimer 
 This project is in a very early stage, so you will probably encounter problems in some cases. If so, please create a PR and an issue as described in the Contribution section!
 

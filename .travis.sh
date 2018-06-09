@@ -4,7 +4,7 @@ hhvm --version
 
 composer install --ignore-platform-reqs
 
-hh_client
+# hh_client
 
 hhvm vendor/bin/phpunit
 

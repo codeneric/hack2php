@@ -14,7 +14,7 @@ namespace Facebook\HHAST;
 use function Facebook\FBExpect\expect;
 use namespace HH\Lib\{C, Str, Vec};
 
-final class HackToPHPTest extends TestCase {
+final class HackToPHPTest extends \PHPUnit\Framework\TestCase  {
 
   private function rglob(string $pattern, int $flags = 0): array<string> {
     $files = \glob($pattern, $flags);

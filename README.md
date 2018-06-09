@@ -5,7 +5,7 @@ hack2php is a project which aims to implement a compiler to translate Hack files
 This ability becomes useful when you have no control over the environment in which your code is supposed to run, but you still want to write your code in Hack.
 An example might be the development of WordPress plugins or themes. 
 
-This Hack code 
+This Hack code:
 ```php
 <?hh //strict
 
@@ -17,7 +17,7 @@ function blub(string $v): ?string {
 }
 ```
 
-is transpiled to 
+is transpiled to this PHP code:
 
 ```php
 <?php //strict

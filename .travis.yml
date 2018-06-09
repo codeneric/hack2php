@@ -3,6 +3,6 @@ hhvm:
  - hhvm
  - hhvm-nightly
 php:
-  - php
+ - php
 script:
  - ./.travis.sh

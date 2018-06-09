@@ -19,4 +19,4 @@ cd "$EXPORT_DIR"
 tar -xf exported.tar
 composer install --no-dev
 echo > .hhconfig
-hh_server --check $(pwd)/src
+# hh_server --check $(pwd)/src

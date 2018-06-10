@@ -797,6 +797,8 @@ final class HackToPHPLinter extends ASTLinter<EditableNode> {
       $node instanceof FunctionDeclaration ||
       $node instanceof MethodishDeclaration ||
       $node instanceof Missing ||
+      $node instanceof ContinueStatement ||
+      $node instanceof BracedExpression ||
       $node instanceof AliasDeclaration
     ) {
       $php = $this->interate_children($node, $parents, $php);

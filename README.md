@@ -5,7 +5,7 @@ hack2php is a project which aims to implement a compiler to translate Hack files
 This ability becomes useful when you have no control over the environment in which your code is supposed to run, but you still want to write your code in Hack.
 An example might be the development of WordPress plugins or themes. 
 
-This Hack code:
+E.g. this Hack code:
 ```php
 <?hh //strict
 
@@ -14,6 +14,14 @@ use codeneric\phmm\legacy\blub;
 
 function blub(string $v): ?string {
     return null;
+}
+
+function ano(): void {
+    $a = 42;
+    $arr = [1, 2, 3, 42, 5, 6];
+    $f = ($e) ==> {
+        return \in_array($a, $arr);
+    };
 }
 ```
 
@@ -26,6 +34,15 @@ use \codeneric\phmm\legacy\blub;
 
 function blub($v){
     return null;
+}
+
+
+function ano(){
+    $a = 42;
+    $arr = [1, 2, 3, 42, 5, 6];
+    $f = function ($e)  use($a,$arr) {
+        return \in_array($a, $arr);
+    };
 }
 ```
 

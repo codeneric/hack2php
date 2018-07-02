@@ -565,11 +565,15 @@ final class HackToPHPLinter extends ASTLinter<EditableNode> {
       if (
         !\is_null($ft) && $ft->getTokenKind() !== "\\"
       ) { //TODO: mutate AST accordingly!
-        $php = $this->sprinft($php, "use \\$ns_cmd;\n$P");
+        $bs = new BackslashToken($ft->getLeading(), $ft);
+        $node = $node->replace($ft, $bs);
+        // $node = $node->insertBefore($ft, $bs);
+        // $php = $this->sprinft($php, "use \\$ns_cmd;\n$P");
       } else {
-        $php = $this->sprinft($php, "use $ns_cmd;\n$P");
+        // $php = $this->sprinft($php, "use $ns_cmd;\n$P");
       }
 
+      $php = $this->interate_children($node, $parents, $php);
       return $php;
     }
 
@@ -624,23 +628,36 @@ final class HackToPHPLinter extends ASTLinter<EditableNode> {
         if ($last_token instanceof CommaToken) {
           $node = $node->removeWhere(($n, $v) ==> $last_token === $n);
         }
-        $args_new = $args->removeWhere(
-          ($n, $v) ==> $n instanceof SimpleTypeSpecifier ||
-            $n instanceof ColonToken ||
-            $n instanceof VectorArrayTypeSpecifier ||
-            $n instanceof TypeParameters ||
-            $n instanceof MapArrayTypeSpecifier ||
-            $n instanceof ShapeTypeSpecifier ||
-            $n instanceof ClosureTypeSpecifier ||
-            $n instanceof NullableTypeSpecifier ||
-            $n instanceof GenericTypeSpecifier ||
-            $n instanceof TupleTypeSpecifier ||
-            $n === $type,
+        invariant(
+          $node instanceof AnonymousFunction,
+          'node has to be of type AnonymousFunction.',
         );
-        $node = $node->replace($args, $args_new);
-      }
 
+        $args = $node->getParameters();
+
+        if (!\is_null($args)) {
+          $args_new = $args->removeWhere(
+            ($n, $v) ==> $n instanceof SimpleTypeSpecifier ||
+              $n instanceof ColonToken ||
+              $n instanceof VectorArrayTypeSpecifier ||
+              $n instanceof TypeParameters ||
+              $n instanceof MapArrayTypeSpecifier ||
+              $n instanceof ShapeTypeSpecifier ||
+              $n instanceof ClosureTypeSpecifier ||
+              $n instanceof NullableTypeSpecifier ||
+              $n instanceof GenericTypeSpecifier ||
+              $n instanceof TupleTypeSpecifier ||
+              $n === $type,
+          );
+          $node = $node->replace($args, $args_new);
+
+
+        }
+
+
+      }
       $node = $node->removeWhere(($n, $v) ==> $n === $colon || $n === $type);
+
       $php = $this->interate_children($node, $parents, $php);
       return $php;
     }
@@ -800,6 +817,12 @@ final class HackToPHPLinter extends ASTLinter<EditableNode> {
       $node instanceof ContinueStatement ||
       $node instanceof BracedExpression ||
       $node instanceof DecoratedExpression ||
+      $node instanceof EvalExpression ||
+      $node instanceof DoStatement ||
+      $node instanceof GlobalStatement ||
+      $node instanceof FinallyClause ||
+      $node instanceof NamespaceUseClause ||
+      $node instanceof YieldExpression ||
       $node instanceof AliasDeclaration
     ) {
       $php = $this->interate_children($node, $parents, $php);

@@ -1,0 +1,421 @@
+{
+  "parse_tree": {
+    "kind": "script",
+    "script_declarations": {
+      "kind": "list",
+      "elements": [
+        {
+          "kind": "markup_section",
+          "markup_prefix": {
+            "kind": "missing"
+          },
+          "markup_text": {
+            "kind": "token",
+            "token": {
+              "kind": "markup",
+              "text": "",
+              "offset": 0,
+              "leading_width": 0,
+              "width": 0,
+              "trailing_width": 0,
+              "leading": [],
+              "trailing": [],
+              "line_number": 1
+            }
+          },
+          "markup_suffix": {
+            "kind": "markup_suffix",
+            "markup_suffix_less_than_question": {
+              "kind": "token",
+              "token": {
+                "kind": "<?",
+                "text": "<?",
+                "offset": 0,
+                "leading_width": 0,
+                "width": 2,
+                "trailing_width": 0,
+                "leading": [],
+                "trailing": [],
+                "line_number": 1
+              }
+            },
+            "markup_suffix_name": {
+              "kind": "token",
+              "token": {
+                "kind": "name",
+                "text": "hh",
+                "offset": 2,
+                "leading_width": 0,
+                "width": 2,
+                "trailing_width": 10,
+                "leading": [],
+                "trailing": [
+                  {
+                    "kind": "whitespace",
+                    "text": " ",
+                    "offset": 4,
+                    "width": 1
+                  },
+                  {
+                    "kind": "single_line_comment",
+                    "text": "//strict",
+                    "offset": 5,
+                    "width": 8
+                  },
+                  {
+                    "kind": "end_of_line",
+                    "text": "\n",
+                    "offset": 13,
+                    "width": 1
+                  }
+                ],
+                "line_number": 1
+              }
+            }
+          },
+          "markup_expression": {
+            "kind": "missing"
+          }
+        },
+        {
+          "kind": "expression_statement",
+          "expression_statement_expression": {
+            "kind": "binary_expression",
+            "binary_left_operand": {
+              "kind": "variable",
+              "variable_expression": {
+                "kind": "token",
+                "token": {
+                  "kind": "variable",
+                  "text": "$f1",
+                  "offset": 14,
+                  "leading_width": 1,
+                  "width": 3,
+                  "trailing_width": 1,
+                  "leading": [
+                    {
+                      "kind": "end_of_line",
+                      "text": "\n",
+                      "offset": 14,
+                      "width": 1
+                    }
+                  ],
+                  "trailing": [
+                    {
+                      "kind": "whitespace",
+                      "text": " ",
+                      "offset": 18,
+                      "width": 1
+                    }
+                  ],
+                  "line_number": 3
+                }
+              }
+            },
+            "binary_operator": {
+              "kind": "token",
+              "token": {
+                "kind": "=",
+                "text": "=",
+                "offset": 19,
+                "leading_width": 0,
+                "width": 1,
+                "trailing_width": 1,
+                "leading": [],
+                "trailing": [
+                  {
+                    "kind": "whitespace",
+                    "text": " ",
+                    "offset": 20,
+                    "width": 1
+                  }
+                ],
+                "line_number": 3
+              }
+            },
+            "binary_right_operand": {
+              "kind": "literal",
+              "literal_expression": {
+                "kind": "token",
+                "token": {
+                  "kind": "decimal_literal",
+                  "text": "1",
+                  "offset": 21,
+                  "leading_width": 0,
+                  "width": 1,
+                  "trailing_width": 0,
+                  "leading": [],
+                  "trailing": [],
+                  "line_number": 3
+                }
+              }
+            }
+          },
+          "expression_statement_semicolon": {
+            "kind": "token",
+            "token": {
+              "kind": ";",
+              "text": ";",
+              "offset": 22,
+              "leading_width": 0,
+              "width": 1,
+              "trailing_width": 1,
+              "leading": [],
+              "trailing": [
+                {
+                  "kind": "end_of_line",
+                  "text": "\n",
+                  "offset": 23,
+                  "width": 1
+                }
+              ],
+              "line_number": 3
+            }
+          }
+        },
+        {
+          "kind": "markup_section",
+          "markup_prefix": {
+            "kind": "token",
+            "token": {
+              "kind": "?>",
+              "text": "?>",
+              "offset": 24,
+              "leading_width": 0,
+              "width": 2,
+              "trailing_width": 0,
+              "leading": [],
+              "trailing": [],
+              "line_number": 4
+            }
+          },
+          "markup_text": {
+            "kind": "token",
+            "token": {
+              "kind": "markup",
+              "text": "",
+              "offset": 26,
+              "leading_width": 0,
+              "width": 0,
+              "trailing_width": 0,
+              "leading": [],
+              "trailing": [],
+              "line_number": 4
+            }
+          },
+          "markup_suffix": {
+            "kind": "markup_suffix",
+            "markup_suffix_less_than_question": {
+              "kind": "token",
+              "token": {
+                "kind": "<?",
+                "text": "<?",
+                "offset": 26,
+                "leading_width": 0,
+                "width": 2,
+                "trailing_width": 0,
+                "leading": [],
+                "trailing": [],
+                "line_number": 4
+              }
+            },
+            "markup_suffix_name": {
+              "kind": "token",
+              "token": {
+                "kind": "name",
+                "text": "hh",
+                "offset": 28,
+                "leading_width": 0,
+                "width": 2,
+                "trailing_width": 0,
+                "leading": [],
+                "trailing": [],
+                "line_number": 4
+              }
+            }
+          },
+          "markup_expression": {
+            "kind": "missing"
+          }
+        },
+        {
+          "kind": "expression_statement",
+          "expression_statement_expression": {
+            "kind": "binary_expression",
+            "binary_left_operand": {
+              "kind": "variable",
+              "variable_expression": {
+                "kind": "token",
+                "token": {
+                  "kind": "variable",
+                  "text": "$f2",
+                  "offset": 30,
+                  "leading_width": 11,
+                  "width": 3,
+                  "trailing_width": 1,
+                  "leading": [
+                    {
+                      "kind": "end_of_line",
+                      "text": "\n",
+                      "offset": 30,
+                      "width": 1
+                    },
+                    {
+                      "kind": "single_line_comment",
+                      "text": "//strict",
+                      "offset": 31,
+                      "width": 8
+                    },
+                    {
+                      "kind": "end_of_line",
+                      "text": "\n",
+                      "offset": 39,
+                      "width": 1
+                    },
+                    {
+                      "kind": "end_of_line",
+                      "text": "\n",
+                      "offset": 40,
+                      "width": 1
+                    }
+                  ],
+                  "trailing": [
+                    {
+                      "kind": "whitespace",
+                      "text": " ",
+                      "offset": 44,
+                      "width": 1
+                    }
+                  ],
+                  "line_number": 7
+                }
+              }
+            },
+            "binary_operator": {
+              "kind": "token",
+              "token": {
+                "kind": "=",
+                "text": "=",
+                "offset": 45,
+                "leading_width": 0,
+                "width": 1,
+                "trailing_width": 1,
+                "leading": [],
+                "trailing": [
+                  {
+                    "kind": "whitespace",
+                    "text": " ",
+                    "offset": 46,
+                    "width": 1
+                  }
+                ],
+                "line_number": 7
+              }
+            },
+            "binary_right_operand": {
+              "kind": "literal",
+              "literal_expression": {
+                "kind": "token",
+                "token": {
+                  "kind": "decimal_literal",
+                  "text": "2",
+                  "offset": 47,
+                  "leading_width": 0,
+                  "width": 1,
+                  "trailing_width": 0,
+                  "leading": [],
+                  "trailing": [],
+                  "line_number": 7
+                }
+              }
+            }
+          },
+          "expression_statement_semicolon": {
+            "kind": "token",
+            "token": {
+              "kind": ";",
+              "text": ";",
+              "offset": 48,
+              "leading_width": 0,
+              "width": 1,
+              "trailing_width": 1,
+              "leading": [],
+              "trailing": [
+                {
+                  "kind": "end_of_line",
+                  "text": "\n",
+                  "offset": 49,
+                  "width": 1
+                }
+              ],
+              "line_number": 7
+            }
+          }
+        },
+        {
+          "kind": "markup_section",
+          "markup_prefix": {
+            "kind": "token",
+            "token": {
+              "kind": "?>",
+              "text": "?>",
+              "offset": 50,
+              "leading_width": 0,
+              "width": 2,
+              "trailing_width": 1,
+              "leading": [],
+              "trailing": [
+                {
+                  "kind": "end_of_line",
+                  "text": "?",
+                  "offset": 50,
+                  "width": 1
+                }
+              ],
+              "line_number": 8
+            }
+          },
+          "markup_text": {
+            "kind": "token",
+            "token": {
+              "kind": "markup",
+              "text": "",
+              "offset": 53,
+              "leading_width": 0,
+              "width": 0,
+              "trailing_width": 0,
+              "leading": [],
+              "trailing": [],
+              "line_number": 9
+            }
+          },
+          "markup_suffix": {
+            "kind": "missing"
+          },
+          "markup_expression": {
+            "kind": "missing"
+          }
+        },
+        {
+          "kind": "end_of_file",
+          "end_of_file_token": {
+            "kind": "token",
+            "token": {
+              "kind": "end_of_file",
+              "text": "",
+              "offset": 53,
+              "leading_width": 0,
+              "width": 0,
+              "trailing_width": 0,
+              "leading": [],
+              "trailing": [],
+              "line_number": 9
+            }
+          }
+        }
+      ]
+    }
+  },
+  "program_text": "<?hh //strict\n\n$f1 = 1;\n?><?hh\n//strict\n\n$f2 = 2;\n?>\n",
+  "version": "2018-03-15-0002"
+}

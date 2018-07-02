@@ -35,6 +35,7 @@ final class HackToPHPTest extends \PHPUnit\Framework\TestCase {
       \mkdir($t);
 
     $files = $this->rglob("example-files/*.php");
+    // $files = $this->rglob("example-files/phmm/vendor/giorgiosironi/*.php");
     $i = 0;
     echo \count($files)." hack files to compile...";
 

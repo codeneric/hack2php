@@ -488,11 +488,57 @@ final class HackToPHPLinter extends ASTLinter<EditableNode> {
       }
 
       if ($child instanceof CollectionLiteralExpression) {
-        $initializers = $child->getInitializers()?->getCode();
-        $sub_ast =
-          $this->ast_from_code("\\HH\\Map::hacklib_new(array($initializers))");
-        $node = $node->replace($child, $sub_ast);
-        // $node = $this->transform_ast($node);
+        $name = $child->getName();
+        invariant(
+          $name instanceof SimpleTypeSpecifier,
+          "Has to be SimpleTypeSpecifier!",
+        );
+        $t =
+          $name->getSpecifier()->getCode() |> \trim($$); //TODO: dont trim shit!
+        if ($t === "Map") {
+          // $initializers = $child->getInitializers()?->getCode();
+          $initializers = $child->getInitializers();
+          if (!\is_null($initializers)) {
+            $elements = $initializers->getChildren();
+            $ks = [];
+            $vs = [];
+            foreach ($elements as $li) {
+              invariant($li instanceof ListItem, "Has to be ListItem!");
+              $li = $li->getItem();
+              invariant(
+                $li instanceof ElementInitializer,
+                "Has to be ElementInitializer!",
+              );
+              $ks[] = $li->getKey()->getCode();
+              $vs[] = $li->getValue()->getCode();
+
+            }
+            $ks_str = \implode(',', $ks);
+            $vs_str = \implode(',', $vs);
+            $sub_ast = $this->ast_from_code(
+              "\\HH\\Map::hacklib_new(array($ks_str), array($vs_str))",
+            );
+          } else {
+            $sub_ast =
+              $this->ast_from_code("\\HH\\Map::hacklib_new(array(), array())");
+          }
+
+          $node = $node->replace($child, $sub_ast);
+        }
+        if ($t === "Vector") {
+          // $initializers = $child->getInitializers()?->getCode();
+          $initializers = $child->getInitializers();
+          if (!\is_null($initializers)) {
+            $code = $initializers->getCode();
+            $sub_ast =
+              $this->ast_from_code("\\HH\\Vector::hacklib_new(array($code))");
+          } else {
+            $sub_ast = $this->ast_from_code("new \\HH\\Vector(array())");
+          }
+
+          $node = $node->replace($child, $sub_ast);
+        }
+
       }
 
       if ($child instanceof EnumDeclaration) {
@@ -501,12 +547,28 @@ final class HackToPHPLinter extends ASTLinter<EditableNode> {
         $enumerators = $child->getEnumerators()?->getChildren();
         $enumerators = !\is_null($enumerators) ? $enumerators : [];
         $code = "final class $enum_name { private function __construct() {} \n";
+
+
+        $code .= "private static \$hacklib_values = array(\n";
+        foreach ($enumerators as $i => $e) {
+          invariant(
+            $e instanceof Enumerator,
+            'Children of EnumDeclaration has to be Enumerator',
+          );
+          $e_name = $e->getName()->getText();
+          $e_value = $e->getValue()->getCode();
+          $sep = $i >= \count($enumerators) - 1 ? '' : ',';
+          $code .= "\"$e_name\" => $e_value $sep\n";
+        }
+        $code .= ");\n";
+
+        $code .= "use \HH\HACKLIB_ENUM_LIKE;\n";
         foreach ($enumerators as $e) {
           invariant(
             $e instanceof Enumerator,
             'Children of EnumDeclaration has to be Enumerator',
           );
-          $e_name = $e->getName()->getCode();
+          $e_name = $e->getName()->getText();
           $e_value = $e->getValue()->getCode();
           $code .= "const $e_name = $e_value;\n";
         }
@@ -517,6 +579,23 @@ final class HackToPHPLinter extends ASTLinter<EditableNode> {
 
       if ($child instanceof AliasDeclaration) {
         $node = $node->removeWhere(($n, $v) ==> $child === $n);
+      }
+
+      if ($child instanceof FunctionCallExpression) {
+        $receiver = $child->getReceiver();
+        if ($receiver instanceof NameToken) {
+          $text = $receiver->getText();
+          if ($text === 'invariant') {
+            // $code = '\\HH\\'.$child->getCode();
+            $args_list = $child->getArgumentList()?->getCode();
+            $sub_ast = $this->ast_from_code(
+              "\\HH\\invariant($args_list)",
+            ); //removes leadning and trailing arrays
+            $node = $node->replace($child, $sub_ast);
+          }
+        }
+
+
       }
 
       if ($child instanceof LambdaExpression) {
@@ -823,6 +902,7 @@ final class HackToPHPLinter extends ASTLinter<EditableNode> {
       $node instanceof FinallyClause ||
       $node instanceof NamespaceUseClause ||
       $node instanceof YieldExpression ||
+      $node instanceof AnonymousClass ||
       $node instanceof AliasDeclaration
     ) {
       $php = $this->interate_children($node, $parents, $php);

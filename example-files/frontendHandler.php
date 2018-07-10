@@ -8,6 +8,7 @@ use codeneric\phmm\enums\CannedEmailPlaceholders;
 use codeneric\phmm\Configuration;
 use codeneric\phmm\base\includes\Error;
 use codeneric\phmm\Utils;
+use codeneric\phmm\type;
 use codeneric\phmm\base\includes\ErrorSeverity;
 use codeneric\phmm\base\globals\Superglobals as Superglobals;
 

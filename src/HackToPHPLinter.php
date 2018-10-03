@@ -557,7 +557,7 @@ final class HackToPHPLinter extends ASTLinter<EditableNode> {
           );
           $e_name = $e->getName()->getText();
           $e_value = $e->getValue()->getCode();
-          $sep = $i >= \count($enumerators) - 1 ? '' : ',';
+          $sep = ((int)$i) >= \count($enumerators) - 1 ? '' : ',';
           $code .= "\"$e_name\" => $e_value $sep\n";
         }
         $code .= ");\n";

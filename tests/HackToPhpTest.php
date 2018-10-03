@@ -45,7 +45,7 @@ final class HackToPHPTest extends \PHPUnit\Framework\TestCase {
       $tf = "temp_".\basename($filename);
       $res = \exec("$d/bin/hack2php $filename | php -l ");
       expect($res)->toBeSame(
-        "No syntax errors detected in -",
+        "No syntax errors detected in Standard input code",
         "Syntax error in file $filename:\n$res",
       );
     }

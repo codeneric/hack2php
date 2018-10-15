@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "client_id": {
+      "default": -1,
+      "id": "/properties/client_id",
+      "type": "integer"
+    },
+    "email": {
+      "id": "/properties/email",
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": ["email"],
+  "type": "object"
+}

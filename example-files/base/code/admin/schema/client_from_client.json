@@ -1,0 +1,39 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "project_access": {
+      "default": [],
+      "id": "/properties/project_access",
+      "additionalItems": false,
+      "items": {
+        "$ref": "file://client_project_access.json#"
+      },
+      "type": "array"
+    },
+    "post_title": {
+      "id": "/properties/post_title",
+      "type": "string"
+    },
+    "user_login": {
+      "id": "/properties/user_login",
+      "type": "string"
+    },
+    "email": {
+      "default": null,
+      "id": "/properties/email",
+      "type": ["null", "string"]
+    },
+    "internal_notes": {
+      "default": null,
+      "id": "/properties/internal_notes",
+      "type": ["null", "string"]
+    },
+    "plain_pwd": {
+      "default": null,
+      "id": "/properties/plain_pwd",
+      "type": ["null", "string"]
+    }
+  },
+  "required": ["project_access", "post_title", "email", "user_login"],
+  "type": "object"
+}

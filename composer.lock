@@ -72,20 +72,21 @@
                 }
             ],
             "description": "Suppress HHVM's automatic conversion of typechecker errors to fatals.",
+            "abandoned": true,
             "time": "2017-05-02T03:07:37+00:00"
         },
         {
             "name": "hhvm/hhast",
-            "version": "v3.27.1",
+            "version": "v3.27.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hhvm/hhast.git",
-                "reference": "8cd58881ccecaf81a0c330dd204f4e0089ef9104"
+                "reference": "6427a690f8436bf697972dd88e91705cbdce7fbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hhvm/hhast/zipball/8cd58881ccecaf81a0c330dd204f4e0089ef9104",
-                "reference": "8cd58881ccecaf81a0c330dd204f4e0089ef9104",
+                "url": "https://api.github.com/repos/hhvm/hhast/zipball/6427a690f8436bf697972dd88e91705cbdce7fbd",
+                "reference": "6427a690f8436bf697972dd88e91705cbdce7fbd",
                 "shasum": ""
             },
             "require": {
@@ -110,7 +111,7 @@
             "license": [
                 "MIT"
             ],
-            "time": "2018-06-28T15:01:11+00:00"
+            "time": "2018-08-06T23:04:30+00:00"
         },
         {
             "name": "hhvm/hhvm-autoload",
@@ -278,6 +279,7 @@
                 "phpunit",
                 "testing"
             ],
+            "abandoned": "hhvm/hacktest",
             "time": "2018-03-02T23:37:33+00:00"
         },
         {

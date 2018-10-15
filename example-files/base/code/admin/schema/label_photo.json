@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "definitions": {},
+  
+  "properties": {
+    "label_id": {
+      "id": "/properties/label_id",
+      "type": "string"
+    },
+
+    "photo_ids": {
+      "additionalItems": false,
+      "id": "/properties/photo_ids",
+      "items": {
+        "id": "/properties/photo_ids/items",
+        "type": "integer"
+      },
+      "type": "array"
+    },
+    "project_id": {
+      "id": "/properties/project_id",
+      "type": "integer"
+    }
+  },
+  "required": ["project_id", "photo_ids", "label_id"],
+  "type": "object"
+}

@@ -399,7 +399,6 @@ use namespace \Facebook\TypeAssert;
 use namespace \HH\Lib\{C, Vec};
 
 
-
 function ast_from_code(string $code): EditableNode {
   $ast = \Facebook\HHAST\from_code($code);
   $ast = $ast->removeWhere(($n, $v) ==> $n instanceof MarkupSection);
@@ -545,6 +544,9 @@ function transpile(
 
         $node = $node->replace($child, $sub_ast);
       }
+
+
+      $node = $node->removeWhere(($n, $v) ==> $name === $n);
 
     }
 
@@ -909,6 +911,7 @@ function transpile(
     $node instanceof NamespaceUseClause ||
     $node instanceof YieldExpression ||
     $node instanceof AnonymousClass ||
+    $node instanceof CollectionLiteralExpression ||
     $node instanceof AliasDeclaration
   ) {
     $php = interate_children($node, $parents, $php);
@@ -955,8 +958,7 @@ function transpile(
 }
 
 
-
-function run(): void {
-  $en = \Facebook\HHAST\from_file(__DIR__.'/../example-files/colon.php');
-  echo transpile($en, vec[], placeholder());
+function run(string $filename): string {
+  $en = \Facebook\HHAST\from_file($filename);
+  return transpile($en, vec[], placeholder());
 }

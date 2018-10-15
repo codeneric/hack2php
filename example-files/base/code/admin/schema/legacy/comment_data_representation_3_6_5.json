@@ -1,0 +1,50 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "client_id": {
+      "type": "integer"
+    },
+    "author": {
+      "type": "string"
+    },
+    "author_email": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "author_IP": {
+      "type": "string",
+      "default": ""
+    },
+    "agent": {
+      "type": "string",
+      "default": ""
+    },
+    "date": {
+      "type": "integer"
+    },
+    "approved": {
+      "type": "integer",
+      "default": 1
+    },
+    "attach_id": {
+      "type": "integer"
+    }
+  },
+  "type": "object",
+  "required": [
+    "client_id",
+    "author",
+    "author_email",
+    "content",
+    "user_id",
+    "author_IP",
+    "agent",
+    "date",
+    "attach_id"
+  ]
+}

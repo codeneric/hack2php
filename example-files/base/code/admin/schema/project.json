@@ -1,0 +1,46 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "gallery": {
+      "default": [],
+      "minItems": 0,
+      "id": "/properties/gallery",
+      "items": {
+        "id": "/properties/gallery/items",
+        "type": "integer",
+        "minimum": 0
+      },
+      "type": "array"
+    },
+    "is_private": {
+      "default": true,
+      "id": "/properties/is_private",
+      "type": "boolean"
+    },
+    "pwd": {
+      "id": "/properties/pwd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    "thumbnail": {
+      "id": "/properties/thumbnail",
+      "type": [
+        "null",
+        "integer"
+      ],
+      "default": null
+    },
+    "configuration": {
+      "$ref": "file://configuration.json#"
+    }
+  },
+  "required": [
+    "gallery",
+    "is_private",
+    "configuration"
+  ],
+  "type": "object"
+}

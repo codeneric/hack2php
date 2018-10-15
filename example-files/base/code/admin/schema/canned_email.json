@@ -1,0 +1,19 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    }
+  },
+  "type": "object",
+  "required": ["id", "display_name", "subject", "content"]
+}

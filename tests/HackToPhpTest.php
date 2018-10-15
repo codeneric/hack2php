@@ -28,6 +28,31 @@ final class HackToPHPTest extends \PHPUnit\Framework\TestCase {
     }
     return $files;
   }
+  // public function testPHPOnlyFeature(): void {
+  //   $d = \dirname(\dirname(__FILE__));
+  //   $t = "$d/example-files/temp";
+  //   if (!\file_exists($t))
+  //     \mkdir($t);
+
+  //   $files = $this->rglob("example-files/*.php");
+  //   // $files = $this->rglob("example-files/phmm/vendor/giorgiosironi/*.php");
+  //   $i = 0;
+  //   echo \count($files)." hack files to compile...";
+
+  //   foreach ($files as $filename) {
+
+  //     // echo "Testing $filename...\n"; 
+  //     $tf = "temp_".\basename($filename);
+  //     $res = \exec("$d/bin/hack2php $filename | php -l ");
+  //     expect($res)->toBeSame(
+  //       "No syntax errors detected in Standard input code",
+  //       "Syntax error in file $filename:\n$res",
+  //     );
+  //   }
+
+
+  // }
+
   public function testPHPOnlyFeature(): void {
     $d = \dirname(\dirname(__FILE__));
     $t = "$d/example-files/temp";
@@ -41,9 +66,12 @@ final class HackToPHPTest extends \PHPUnit\Framework\TestCase {
 
     foreach ($files as $filename) {
 
+      $php = \Codeneric\run($filename);
+      $php_file_path = "$t/the-file.php";
+      \file_put_contents($php_file_path, $php);
+
       // echo "Testing $filename...\n"; 
-      $tf = "temp_".\basename($filename);
-      $res = \exec("$d/bin/hack2php $filename | php -l ");
+      $res = \exec("cat $php_file_path | php -l ");
       expect($res)->toBeSame(
         "No syntax errors detected in Standard input code",
         "Syntax error in file $filename:\n$res",

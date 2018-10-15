@@ -1,0 +1,82 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "title":{
+      "type": "string"
+    },
+    "description":{
+      "type": "string",
+      "default": ""
+    },
+    "gallery":{
+      "type": "array",
+      "default": [],
+      "items": {"type": "integer"}
+    },
+    "starred":{
+      "type": "array",
+      "default": [],
+      "items": {"type": "integer"}
+    },
+    "favoritable":{
+      "type": "string",
+      "default": "false"
+    },
+    "downloadable":{
+      "type": "string",
+      "default": "false"
+    },
+    "disableRightClick":{
+      "type": "string",
+      "default": "false"
+    },
+    "showCaptions":{
+      "type": "string",
+      "default": "false"
+    },
+    "showFilenames":{
+      "type": "string",
+      "default": "false"
+    },
+    "statusText":{
+      "type": "string",
+      "default": "OK"
+    },
+    "status":{
+      "type": "string",
+      "default": "ok"
+    },
+    "id":{
+      "type": "string"
+    },
+    "commentable":{
+      "type": "string",
+      "default": "false"
+    },
+    "downloadable_favs":{
+      "type": "string",
+      "default": "false"
+    },
+    "thumbnail":{
+      "type": "integer",
+      "default": 0
+    },
+    "download_favs":{
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    "url":{
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    }
+
+   },
+"type": "object",
+"required": ["title", "id"]
+}

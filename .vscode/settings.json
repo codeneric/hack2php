@@ -1,2 +1,3 @@
 {
+    "hack.clientPath": "docker exec -i HHVM hh_client"
 }

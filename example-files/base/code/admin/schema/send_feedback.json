@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "subject": {
+      "id": "/properties/subject",
+      "type": "string"
+    },
+    "email": {
+      "id": "/properties/email",
+      "type": "string"
+    },
+    "content": {
+      "id": "/properties/content",
+      "type": "string"
+    },
+    "topic": {
+      "id": "/properties/topic",
+      "type": "string"
+    },
+    "name": {
+      "id": "/properties/name",
+      "type": "string"
+    }
+  },
+  "required": ["subject", "email", "content", "topic", "name"],
+  "type": "object"
+}

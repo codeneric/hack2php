@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "definitions": {},
+  
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "attachment_id": {
+      "type": "integer"
+    },
+    "wp_user_id": {
+      "type": "integer"
+    },
+    "project_id": {
+      "type": "integer"
+    },
+    "content": {
+      "type": "string"
+    },
+    "client_id": {
+      "type": "integer"
+    },
+    "time": {
+      "type": "string"
+    },
+    "wp_author_id": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "id",
+    "attachment_id",
+    "wp_user_id",
+    "project_id",
+    "content",
+    "client_id",
+    "time",
+    "wp_author_id"
+  ],
+  "type": "object"
+}

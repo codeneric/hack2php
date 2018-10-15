@@ -1,0 +1,38 @@
+{
+  "properties": {
+    "gallery": {
+      "default": "",
+      "id": "/properties/gallery",
+      "type": "string"
+    },
+
+    "is_private": {
+      "default": true,
+      "id": "/properties/is_private",
+      "type": "boolean"
+    },
+
+    "pwd": {
+      "id": "/properties/pwd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    "thumbnail": {
+      "id": "/properties/thumbnail",
+
+      "type": [
+        "null",
+        "integer"
+      ],
+      "default": null
+    },
+    "configuration": {
+      "$ref": "file://configuration.json#"
+    }
+  },
+  "required": ["gallery", "is_private", "configuration"],
+  "type": "object"
+}

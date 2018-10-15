@@ -1,0 +1,21 @@
+{
+  "properties": {
+    "id": {
+      "id": "/properties/id",
+      "type": "integer"
+    },
+
+    "active": {
+      "default": true,
+      "id": "/properties/active",
+      "type": "boolean"
+    },
+
+    "configuration": {
+      "default": null,
+      "oneOf": [{ "type": "null" }, { "$ref": "file://configuration.json#" }]
+    }
+  },
+  "required": ["id"],
+  "type": "object"
+}

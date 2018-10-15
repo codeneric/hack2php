@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "definitions": {},
+  
+  "properties": {
+    "project_id": {
+      "type": "integer"
+    },
+    "client_id": {
+      "default": null,
+      "type": ["null", "integer"]
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["favs", "all"]
+    }
+  },
+  "required": ["project_id", "mode"],
+  "type": "object"
+}

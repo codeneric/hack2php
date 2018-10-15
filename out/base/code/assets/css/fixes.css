@@ -1,0 +1,5 @@
+.menu-icon-client > ul > li a[href="post-new.php?post_type=client"] {
+  display: none!important;
+};
+
+

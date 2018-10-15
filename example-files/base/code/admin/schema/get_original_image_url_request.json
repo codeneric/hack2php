@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "definitions": {},
+  
+  "properties": {
+    "project_id": {
+      "type": "integer"
+    },
+    "image_id": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "project_id",
+    "image_id"
+  ],
+  "type": "object"
+}

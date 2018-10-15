@@ -1,0 +1,147 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "project_access": {
+      "default": [],
+      "id": "/properties/project_access",
+      "additionalItems": false,
+      "items": {
+        "properties": {
+          "id": {
+            "id": "/properties/id",
+            "type": "integer"
+          },
+          "active": {
+            "default": true,
+            "id": "/properties/active",
+            "type": "boolean"
+          },
+          "configuration": {
+            "default": null,
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "additionalProperties": false,
+                "id": "Configuration",
+                "title": "Configuration",
+                "default": null,
+                "properties": {
+                  "commentable": {
+                    "default": false,
+                    "id": "/properties/commentable",
+                    "type": "boolean"
+                  },
+                  "disableRightClick": {
+                    "default": false,
+                    "id": "/properties/disableRightClick",
+                    "type": "boolean"
+                  },
+                  "download_favs": {
+                    "id": "/properties/download_favs",
+                    "type": [
+                      "null",
+                      "string"
+                    ],
+                    "default": null
+                  },
+                  "downloadable": {
+                    "default": true,
+                    "id": "/properties/downloadable",
+                    "type": "boolean"
+                  },
+                  "downloadable_favs": {
+                    "default": false,
+                    "id": "/properties/downloadable_favs",
+                    "type": "boolean"
+                  },
+                  "downloadable_single": {
+                    "default": false,
+                    "id": "/properties/downloadable_single",
+                    "type": "boolean"
+                  },
+                  "favoritable": {
+                    "default": true,
+                    "id": "/properties/favoritable",
+                    "type": "boolean"
+                  },
+                  "showCaptions": {
+                    "default": false,
+                    "id": "/properties/showCaptions",
+                    "type": "boolean"
+                  },
+                  "showFilenames": {
+                    "default": false,
+                    "id": "/properties/showFilenames",
+                    "type": "boolean"
+                  },
+                  "watermark": {
+                    "default": false,
+                    "id": "/properties/watermark",
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "disableRightClick",
+                  "showCaptions",
+                  "downloadable_favs",
+                  "downloadable_single",
+                  "commentable",
+                  "favoritable",
+                  "showFilenames",
+                  "downloadable"
+                ],
+                "type": "object"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "post_title": {
+      "id": "/properties/post_title",
+      "type": "string"
+    },
+    "user_login": {
+      "id": "/properties/user_login",
+      "type": "string"
+    },
+    "email": {
+      "default": null,
+      "id": "/properties/email",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "internal_notes": {
+      "default": null,
+      "id": "/properties/internal_notes",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "plain_pwd": {
+      "default": null,
+      "id": "/properties/plain_pwd",
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  },
+  "required": [
+    "project_access",
+    "post_title",
+    "email",
+    "user_login"
+  ],
+  "type": "object"
+}

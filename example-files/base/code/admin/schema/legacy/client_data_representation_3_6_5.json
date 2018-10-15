@@ -1,0 +1,59 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "full_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "show_on_page": {
+      "type": [
+        "null",
+        "integer"
+      ],
+      "default": null
+    },
+    "login_name": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    "pwd": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    "additionalInfo": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    "phone": {
+      "type": "string",
+      "default": ""
+    },
+    "address": {
+      "type": "string",
+      "default": ""
+    },
+    "wp_user_id": {
+      "type": [
+        "null",
+        "integer"
+      ],
+      "default": null
+    }
+  },
+  "type": "object",
+  "required": [
+    "full_name",
+    "email"
+  ]
+}

@@ -1,0 +1,61 @@
+<?hh //strict
+
+namespace codeneric\phmm\base\admin;
+use codeneric\phmm\Configuration;
+use codeneric\phmm\base\includes\Error;
+class PremiumPage {
+
+  const page_name = 'premium';
+
+  public static function init(): void {}
+
+  public static function add_page(): void {
+
+    add_submenu_page(
+      'edit.php?post_type='.Configuration::get()['client_post_type'],
+      'PHMM '.__('Premium'),
+      __('Premium'),
+      'manage_options',
+      self::page_name,
+      array(self::class, 'render_page'),
+    );
+
+  }
+
+  public static function render_page(): void {
+
+    $title = "<h2>".__('Premium Page')."</h2>";
+
+    // $settings = self::getCurrentSettings();
+
+    // $json = json_encode($settings);
+
+    $fbJoin =
+      "<strong>".
+      __(
+        'Join our <a style=\'color: coral\' target=\'_blank\' href=\'https:\/\/www.facebook.com/groups/1529247670736165/\'>facebook group</a> to get immediate help or get in contact with other photographers using WordPress!',
+        Configuration::get()['plugin_name'],
+      ).
+      "</strong>";
+
+    echo "<form action='options.php' method='post'>
+            $title
+      <div class='postbox'>
+                <div class='inside'>";
+
+    // START: REPLACE FOR DEMO
+    echo
+      "<div id='cc_phmm_premium_page'>
+       <div style=\"background:url('images/spinner.gif') no-repeat;background-size: 20px 20px;vertical-align: middle;margin: 0 auto;height: 20px;width: 20px;display:block;\"></div>
+    </div>"
+    ;
+    // REPLACE WITH
+    /*
+     echo '<h1>This is a demo of PHMM premium</h1>';
+     */
+    // END: REPLACE FOR DEMO
+    echo "<hr />".$fbJoin."</div></div></form>";
+
+  }
+
+}

@@ -1,0 +1,1 @@
+<?hh // strict // Silence is golden

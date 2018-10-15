@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "definitions": {},
+  
+  "properties": {
+    "client_id": {
+      "id": "/properties/client_id",
+      "type": "integer"
+    }
+  },
+  "required": ["client_id"],
+  "type": "object"
+}

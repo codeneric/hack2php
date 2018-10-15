@@ -1,0 +1,26 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "project_access": {
+      "default": [],
+      "additionalItems": false,
+      "items": {
+        "$ref": "file://client_project_access.json#"
+      },
+      "type": "array"
+    },
+
+    "wp_user": {
+      "type": "integer"
+    },
+    "internal_notes": {
+      "default": null,
+      "type": ["null", "string"]
+    },
+    "id": {
+      "type": "integer"
+    }
+  },
+  "required": ["wp_user"],
+  "type": "object"
+}

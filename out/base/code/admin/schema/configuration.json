@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+
+  "properties": {
+    "commentable": {
+      "default": false,
+      "id": "/properties/commentable",
+      "type": "boolean"
+    },
+    "disableRightClick": {
+      "default": false,
+      "id": "/properties/disableRightClick",
+      "type": "boolean"
+    },
+
+    "downloadable": {
+      "default": true,
+      "id": "/properties/downloadable",
+      "type": "boolean"
+    },
+    "downloadable_favs": {
+      "default": false,
+      "id": "/properties/downloadable_favs",
+      "type": "boolean"
+    },
+    "downloadable_single": {
+      "default": false,
+      "id": "/properties/downloadable_single",
+      "type": "boolean"
+    },
+
+    "favoritable": {
+      "default": true,
+      "id": "/properties/favoritable",
+      "type": "boolean"
+    },
+    "showCaptions": {
+      "default": false,
+      "id": "/properties/showCaptions",
+      "type": "boolean"
+    },
+    "showFilenames": {
+      "default": false,
+      "id": "/properties/showFilenames",
+      "type": "boolean"
+    },
+    "watermark": {
+      "default": false,
+      "id": "/properties/watermark",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "disableRightClick",
+    "showCaptions",
+    "watermark",
+    "downloadable_favs",
+    "downloadable_single",
+    "commentable",
+    "favoritable",
+    "showFilenames",
+    "downloadable"
+  ],
+  "type": "object"
+}

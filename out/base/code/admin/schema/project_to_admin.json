@@ -1,0 +1,50 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "gallery": {
+      "default": [],
+      "minItems": 0,
+      "id": "/properties/gallery",
+      "items": {
+        "$ref": "file://image.json#"
+      },
+      "type": "array"
+    },
+    "protection": {
+      "$ref": "file://project_protection.json#"
+    },
+    "pwd": {
+      "id": "/properties/pwd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    "id": {
+      "id": "/properties/id",
+      "type": "integer"
+    },
+    "thumbnail": {
+      "id": "/properties/thumbnail",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "file://image.json#"
+        }
+      ]
+    },
+    "configuration": {
+      "$ref": "file://configuration.json#"
+    }
+  },
+  "required": [
+    "gallery",
+    "protection",
+    "configuration",
+    "id"
+  ],
+  "type": "object"
+}

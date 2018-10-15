@@ -1,0 +1,27 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "image_id": {
+      "type": ["null", "integer"],
+      "default": null
+    },
+    "scale": {
+      "type": ["null", "integer"],
+      "default": null
+    },
+    "position": {
+      "type": ["null", "string"],
+      "default": null,
+      "enum": [
+        null,
+        "center",
+        "left_bottom",
+        "right_bottom",
+        "left_top",
+        "right_top"
+      ]
+    }
+  },
+  "required": [],
+  "type": "object"
+}

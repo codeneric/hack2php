@@ -1,0 +1,34 @@
+{
+  "properties": {
+    "gallery": {
+      "default": [],
+      "id": "/properties/gallery",
+      "type": "array",
+      "items": {"type": "integer"}
+    },
+
+    "protection": {
+      "$ref": "file://project_protection.json#"
+    },
+    "pwd": {
+      "id": "/properties/pwd",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    "thumbnail": {
+      "id": "/properties/thumbnail",
+      "default": null,
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "configuration": {
+      "default": [],
+      "$ref": "file://configuration.json#"
+    }
+  },
+  "required": ["protection", "configuration"],
+  "type": "object"
+}

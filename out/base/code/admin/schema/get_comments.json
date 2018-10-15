@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "definitions": {},
+  
+  "properties": {
+    "project_id": {
+      "id": "/properties/project_id",
+      "type": "integer"
+    },
+    "client_id": {
+      "id": "/properties/client_id",
+      "type": [
+        "null",
+        "integer"
+      ],
+      "default": null
+    },
+    "attachment_id": {
+      "id": "/properties/attachment_id",
+      "type": "integer"
+    }
+  },
+  "required": ["project_id", "attachment_id"],
+  "type": "object"
+}

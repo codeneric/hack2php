@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  
+  "properties": {
+    "private": {
+      "default": false,
+      "id": "/properties/properties",
+      "type": "boolean"
+    },
+    "password_protection": {
+      "default": false,
+      "id": "/properties/password_protection",
+      "type": "boolean"
+    },
+    "password": {
+      "default": null,
+      "id": "/properties/password",
+      "type": ["null", "string"]
+    }
+  },
+  "required": ["private", "password_protection"],
+  "type": "object"
+}

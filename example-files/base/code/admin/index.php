@@ -1,0 +1,2 @@
+<?hh
+// Silence is golden

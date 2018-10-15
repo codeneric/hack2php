@@ -1,0 +1,82 @@
+{
+  "additionalProperties": false,
+
+  "properties": {
+    "gallery": {
+      "default": {},
+      "minItems": 0,
+      "id": "/properties/gallery",
+      "additionalProperties": false,
+      "properties": {
+        "order": {
+          "default": [],
+          "items": {
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "preloaded": {
+          "default": [],
+          "items": {
+            "$ref": "file://image.json#"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "labels": {
+      "default": [],
+      "items": {
+        "minItems": 0,
+        "id": "/properties/label",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "images": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["id", "images"],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "comment_counts": {
+      "additionalItems": false,
+      "default": [],
+      "id": "/properties/comment_counts",
+      "items": {
+        "type": "object",
+        "properties": {
+          "image_id": { "type": "integer" },
+          "count": { "type": "integer" }
+        },
+        "required": ["image_id", "count"]
+      },
+
+      "type": "array"
+    },
+
+    "id": {
+      "id": "/properties/id",
+      "type": "integer"
+    },
+    "thumbnail": {
+      "$ref": "file://image.json#"
+    },
+    "configuration": {
+      "$ref": "file://configuration.json#"
+    },
+    "download_base_url": {
+      "type": "string"
+    }
+  },
+  "required": ["gallery", "configuration", "id", "download_base_url"],
+  "type": "object"
+}

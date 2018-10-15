@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  
+  "properties": {
+    "error": {
+      "id": "/properties/error",
+      "type": "boolean",
+      "default": false
+    },
+    "filename": {
+      "id": "/properties/filename",
+      "type": "string"
+    },
+    "id": {
+      "id": "/properties/id",
+      "type": "integer"
+    },
+    "meta": {
+      "id": "/properties/meta",
+      "properties": {
+        "caption": {
+          "id": "/properties/meta/items/properties/caption",
+          "type": [
+            "null",
+            "string"
+          ],
+          "additionalProperties": true,
+          "default": null
+        }
+      },
+      "type": "object"
+    },
+    "mini_thumb": {
+      "id": "/properties/mini_thumb",
+      "type": "string"
+    },
+    "sizes": {
+      "id": "/properties/sizes",
+      "items": {
+        "additionalProperties": false,
+        "id": "/properties/sizes/items",
+        "properties": {
+          "height": {
+            "id": "/properties/sizes/items/properties/height",
+            "type": "integer"
+          },
+          "name": {
+            "id": "/properties/sizes/items/properties/name",
+            "type": "string"
+          },
+          "url": {
+            "id": "/properties/sizes/items/properties/url",
+            "type": "string"
+          },
+          "width": {
+            "id": "/properties/sizes/items/properties/width",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "url",
+          "width",
+          "name",
+          "height"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "mini_thumb",
+    "meta",
+    "id",
+    "sizes",
+    "filename"
+  ],
+  "type": "object"
+}

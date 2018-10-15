@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "definitions": {},
+
+  "properties": {
+    "IDs": {
+      "items": {
+        "type": "integer"
+      },
+      "type": "array"
+    },
+
+    "project_id": {
+      "id": "/properties/project_id",
+      "type": ["null", "integer"],
+      "default": null
+    },
+    "mini_thumbs": {
+      "id": "/properties/mini_thumbs",
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": ["IDs", "project_id"],
+  "type": "object"
+}

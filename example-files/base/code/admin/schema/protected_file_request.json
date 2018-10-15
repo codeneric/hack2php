@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": true,
+  "definitions": {},
+  
+  "properties": {
+    "f": {
+      "id": "/properties/f",
+      "type": "string"
+    },
+    "project_id": {
+      "default": null,
+      "id": "/properties/project_id",
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "attach_id": {
+      "default": null,
+      "id": "/properties/attach_id",
+      "type": [
+        "null",
+        "integer"
+      ]
+    },
+    "part": {
+      "default": 0,
+      "id": "/properties/part",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "f"
+  ],
+  "type": "object"
+}

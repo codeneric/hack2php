@@ -41,22 +41,6 @@ if (!\array_key_exists('o', $options) || !\is_string($options['o'])) {
   exit;
 }
 
-function greatest_common_prefix(array<string> $array): string {
-  $prefix = array_shift(&$array); // take the first item as initial prefix
-  $length = strlen($prefix);
-  // compare the current prefix with the prefix of the same length of the other items
-  foreach ($array as $item) {
-    // check if there is a match; if not, decrease the prefix by one character at a time
-    while ($length && substr($item, 0, $length) !== $prefix) {
-      $length--;
-      $prefix = substr($prefix, 0, -1);
-    }
-    if (!$length) {
-      break;
-    }
-  }
-  return $prefix;
-}
 
 function rglob(string $pattern, int $flags = 0): array<string> {
   $files = \glob($pattern, $flags);

@@ -1,0 +1,985 @@
+{
+    "parse_tree": {
+        "kind": "script",
+        "script_declarations": {
+            "kind": "list",
+            "elements": [
+                {
+                    "kind": "markup_section",
+                    "markup_prefix": {
+                        "kind": "missing"
+                    },
+                    "markup_text": {
+                        "kind": "token",
+                        "token": {
+                            "kind": "markup",
+                            "text": "",
+                            "offset": 0,
+                            "leading_width": 0,
+                            "width": 0,
+                            "trailing_width": 0,
+                            "leading": [],
+                            "trailing": [],
+                            "line_number": 1
+                        }
+                    },
+                    "markup_suffix": {
+                        "kind": "markup_suffix",
+                        "markup_suffix_less_than_question": {
+                            "kind": "token",
+                            "token": {
+                                "kind": "<?",
+                                "text": "<?",
+                                "offset": 0,
+                                "leading_width": 0,
+                                "width": 2,
+                                "trailing_width": 0,
+                                "leading": [],
+                                "trailing": [],
+                                "line_number": 1
+                            }
+                        },
+                        "markup_suffix_name": {
+                            "kind": "token",
+                            "token": {
+                                "kind": "name",
+                                "text": "hh",
+                                "offset": 2,
+                                "leading_width": 0,
+                                "width": 2,
+                                "trailing_width": 10,
+                                "leading": [],
+                                "trailing": [
+                                    {
+                                        "kind": "whitespace",
+                                        "text": " ",
+                                        "offset": 4,
+                                        "width": 1
+                                    },
+                                    {
+                                        "kind": "single_line_comment",
+                                        "text": "//strict",
+                                        "offset": 5,
+                                        "width": 8
+                                    },
+                                    {
+                                        "kind": "end_of_line",
+                                        "text": "\n",
+                                        "offset": 13,
+                                        "width": 1
+                                    }
+                                ],
+                                "line_number": 1
+                            }
+                        }
+                    },
+                    "markup_expression": {
+                        "kind": "missing"
+                    }
+                },
+                {
+                    "kind": "namespace_declaration",
+                    "namespace_keyword": {
+                        "kind": "token",
+                        "token": {
+                            "kind": "namespace",
+                            "text": "namespace",
+                            "offset": 14,
+                            "leading_width": 2,
+                            "width": 9,
+                            "trailing_width": 1,
+                            "leading": [
+                                {
+                                    "kind": "end_of_line",
+                                    "text": "\n",
+                                    "offset": 14,
+                                    "width": 1
+                                },
+                                {
+                                    "kind": "end_of_line",
+                                    "text": "\n",
+                                    "offset": 15,
+                                    "width": 1
+                                }
+                            ],
+                            "trailing": [
+                                {
+                                    "kind": "whitespace",
+                                    "text": " ",
+                                    "offset": 25,
+                                    "width": 1
+                                }
+                            ],
+                            "line_number": 4
+                        }
+                    },
+                    "namespace_name": {
+                        "kind": "qualified_name",
+                        "qualified_name_parts": {
+                            "kind": "list",
+                            "elements": [
+                                {
+                                    "kind": "list_item",
+                                    "list_item": {
+                                        "kind": "token",
+                                        "token": {
+                                            "kind": "name",
+                                            "text": "codeneric",
+                                            "offset": 26,
+                                            "leading_width": 0,
+                                            "width": 9,
+                                            "trailing_width": 0,
+                                            "leading": [],
+                                            "trailing": [],
+                                            "line_number": 4
+                                        }
+                                    },
+                                    "list_separator": {
+                                        "kind": "token",
+                                        "token": {
+                                            "kind": "\\",
+                                            "text": "\\",
+                                            "offset": 35,
+                                            "leading_width": 0,
+                                            "width": 1,
+                                            "trailing_width": 0,
+                                            "leading": [],
+                                            "trailing": [],
+                                            "line_number": 4
+                                        }
+                                    }
+                                },
+                                {
+                                    "kind": "list_item",
+                                    "list_item": {
+                                        "kind": "token",
+                                        "token": {
+                                            "kind": "name",
+                                            "text": "type",
+                                            "offset": 36,
+                                            "leading_width": 0,
+                                            "width": 4,
+                                            "trailing_width": 1,
+                                            "leading": [],
+                                            "trailing": [
+                                                {
+                                                    "kind": "whitespace",
+                                                    "text": " ",
+                                                    "offset": 40,
+                                                    "width": 1
+                                                }
+                                            ],
+                                            "line_number": 4
+                                        }
+                                    },
+                                    "list_separator": {
+                                        "kind": "missing"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "namespace_body": {
+                        "kind": "namespace_body",
+                        "namespace_left_brace": {
+                            "kind": "token",
+                            "token": {
+                                "kind": "{",
+                                "text": "{",
+                                "offset": 41,
+                                "leading_width": 0,
+                                "width": 1,
+                                "trailing_width": 1,
+                                "leading": [],
+                                "trailing": [
+                                    {
+                                        "kind": "end_of_line",
+                                        "text": "\n",
+                                        "offset": 42,
+                                        "width": 1
+                                    }
+                                ],
+                                "line_number": 4
+                            }
+                        },
+                        "namespace_declarations": {
+                            "kind": "list",
+                            "elements": [
+                                {
+                                    "kind": "alias_declaration",
+                                    "alias_attribute_spec": {
+                                        "kind": "missing"
+                                    },
+                                    "alias_keyword": {
+                                        "kind": "token",
+                                        "token": {
+                                            "kind": "type",
+                                            "text": "type",
+                                            "offset": 43,
+                                            "leading_width": 2,
+                                            "width": 4,
+                                            "trailing_width": 1,
+                                            "leading": [
+                                                {
+                                                    "kind": "whitespace",
+                                                    "text": "  ",
+                                                    "offset": 43,
+                                                    "width": 2
+                                                }
+                                            ],
+                                            "trailing": [
+                                                {
+                                                    "kind": "whitespace",
+                                                    "text": " ",
+                                                    "offset": 49,
+                                                    "width": 1
+                                                }
+                                            ],
+                                            "line_number": 5
+                                        }
+                                    },
+                                    "alias_name": {
+                                        "kind": "token",
+                                        "token": {
+                                            "kind": "name",
+                                            "text": "b",
+                                            "offset": 50,
+                                            "leading_width": 0,
+                                            "width": 1,
+                                            "trailing_width": 1,
+                                            "leading": [],
+                                            "trailing": [
+                                                {
+                                                    "kind": "whitespace",
+                                                    "text": " ",
+                                                    "offset": 51,
+                                                    "width": 1
+                                                }
+                                            ],
+                                            "line_number": 5
+                                        }
+                                    },
+                                    "alias_generic_parameter": {
+                                        "kind": "missing"
+                                    },
+                                    "alias_constraint": {
+                                        "kind": "missing"
+                                    },
+                                    "alias_equal": {
+                                        "kind": "token",
+                                        "token": {
+                                            "kind": "=",
+                                            "text": "=",
+                                            "offset": 52,
+                                            "leading_width": 0,
+                                            "width": 1,
+                                            "trailing_width": 1,
+                                            "leading": [],
+                                            "trailing": [
+                                                {
+                                                    "kind": "whitespace",
+                                                    "text": " ",
+                                                    "offset": 53,
+                                                    "width": 1
+                                                }
+                                            ],
+                                            "line_number": 5
+                                        }
+                                    },
+                                    "alias_type": {
+                                        "kind": "shape_type_specifier",
+                                        "shape_type_keyword": {
+                                            "kind": "token",
+                                            "token": {
+                                                "kind": "shape",
+                                                "text": "shape",
+                                                "offset": 54,
+                                                "leading_width": 0,
+                                                "width": 5,
+                                                "trailing_width": 0,
+                                                "leading": [],
+                                                "trailing": [],
+                                                "line_number": 5
+                                            }
+                                        },
+                                        "shape_type_left_paren": {
+                                            "kind": "token",
+                                            "token": {
+                                                "kind": "(",
+                                                "text": "(",
+                                                "offset": 59,
+                                                "leading_width": 0,
+                                                "width": 1,
+                                                "trailing_width": 0,
+                                                "leading": [],
+                                                "trailing": [],
+                                                "line_number": 5
+                                            }
+                                        },
+                                        "shape_type_fields": {
+                                            "kind": "missing"
+                                        },
+                                        "shape_type_ellipsis": {
+                                            "kind": "missing"
+                                        },
+                                        "shape_type_right_paren": {
+                                            "kind": "token",
+                                            "token": {
+                                                "kind": ")",
+                                                "text": ")",
+                                                "offset": 60,
+                                                "leading_width": 0,
+                                                "width": 1,
+                                                "trailing_width": 0,
+                                                "leading": [],
+                                                "trailing": [],
+                                                "line_number": 5
+                                            }
+                                        }
+                                    },
+                                    "alias_semicolon": {
+                                        "kind": "token",
+                                        "token": {
+                                            "kind": ";",
+                                            "text": ";",
+                                            "offset": 61,
+                                            "leading_width": 0,
+                                            "width": 1,
+                                            "trailing_width": 1,
+                                            "leading": [],
+                                            "trailing": [
+                                                {
+                                                    "kind": "end_of_line",
+                                                    "text": "\n",
+                                                    "offset": 62,
+                                                    "width": 1
+                                                }
+                                            ],
+                                            "line_number": 5
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        "namespace_right_brace": {
+                            "kind": "token",
+                            "token": {
+                                "kind": "}",
+                                "text": "}",
+                                "offset": 63,
+                                "leading_width": 1,
+                                "width": 1,
+                                "trailing_width": 1,
+                                "leading": [
+                                    {
+                                        "kind": "end_of_line",
+                                        "text": "\n",
+                                        "offset": 63,
+                                        "width": 1
+                                    }
+                                ],
+                                "trailing": [
+                                    {
+                                        "kind": "end_of_line",
+                                        "text": "\n",
+                                        "offset": 65,
+                                        "width": 1
+                                    }
+                                ],
+                                "line_number": 7
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "namespace_declaration",
+                    "namespace_keyword": {
+                        "kind": "token",
+                        "token": {
+                            "kind": "namespace",
+                            "text": "namespace",
+                            "offset": 66,
+                            "leading_width": 0,
+                            "width": 9,
+                            "trailing_width": 1,
+                            "leading": [],
+                            "trailing": [
+                                {
+                                    "kind": "whitespace",
+                                    "text": " ",
+                                    "offset": 75,
+                                    "width": 1
+                                }
+                            ],
+                            "line_number": 8
+                        }
+                    },
+                    "namespace_name": {
+                        "kind": "qualified_name",
+                        "qualified_name_parts": {
+                            "kind": "list",
+                            "elements": [
+                                {
+                                    "kind": "list_item",
+                                    "list_item": {
+                                        "kind": "token",
+                                        "token": {
+                                            "kind": "name",
+                                            "text": "codeneric",
+                                            "offset": 76,
+                                            "leading_width": 0,
+                                            "width": 9,
+                                            "trailing_width": 0,
+                                            "leading": [],
+                                            "trailing": [],
+                                            "line_number": 8
+                                        }
+                                    },
+                                    "list_separator": {
+                                        "kind": "token",
+                                        "token": {
+                                            "kind": "\\",
+                                            "text": "\\",
+                                            "offset": 85,
+                                            "leading_width": 0,
+                                            "width": 1,
+                                            "trailing_width": 0,
+                                            "leading": [],
+                                            "trailing": [],
+                                            "line_number": 8
+                                        }
+                                    }
+                                },
+                                {
+                                    "kind": "list_item",
+                                    "list_item": {
+                                        "kind": "token",
+                                        "token": {
+                                            "kind": "name",
+                                            "text": "x",
+                                            "offset": 86,
+                                            "leading_width": 0,
+                                            "width": 1,
+                                            "trailing_width": 1,
+                                            "leading": [],
+                                            "trailing": [
+                                                {
+                                                    "kind": "whitespace",
+                                                    "text": " ",
+                                                    "offset": 87,
+                                                    "width": 1
+                                                }
+                                            ],
+                                            "line_number": 8
+                                        }
+                                    },
+                                    "list_separator": {
+                                        "kind": "missing"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "namespace_body": {
+                        "kind": "namespace_body",
+                        "namespace_left_brace": {
+                            "kind": "token",
+                            "token": {
+                                "kind": "{",
+                                "text": "{",
+                                "offset": 88,
+                                "leading_width": 0,
+                                "width": 1,
+                                "trailing_width": 1,
+                                "leading": [],
+                                "trailing": [
+                                    {
+                                        "kind": "end_of_line",
+                                        "text": "\n",
+                                        "offset": 89,
+                                        "width": 1
+                                    }
+                                ],
+                                "line_number": 8
+                            }
+                        },
+                        "namespace_declarations": {
+                            "kind": "list",
+                            "elements": [
+                                {
+                                    "kind": "namespace_use_declaration",
+                                    "namespace_use_keyword": {
+                                        "kind": "token",
+                                        "token": {
+                                            "kind": "use",
+                                            "text": "use",
+                                            "offset": 90,
+                                            "leading_width": 2,
+                                            "width": 3,
+                                            "trailing_width": 1,
+                                            "leading": [
+                                                {
+                                                    "kind": "whitespace",
+                                                    "text": "  ",
+                                                    "offset": 90,
+                                                    "width": 2
+                                                }
+                                            ],
+                                            "trailing": [
+                                                {
+                                                    "kind": "whitespace",
+                                                    "text": " ",
+                                                    "offset": 95,
+                                                    "width": 1
+                                                }
+                                            ],
+                                            "line_number": 9
+                                        }
+                                    },
+                                    "namespace_use_kind": {
+                                        "kind": "missing"
+                                    },
+                                    "namespace_use_clauses": {
+                                        "kind": "list",
+                                        "elements": [
+                                            {
+                                                "kind": "list_item",
+                                                "list_item": {
+                                                    "kind": "namespace_use_clause",
+                                                    "namespace_use_clause_kind": {
+                                                        "kind": "missing"
+                                                    },
+                                                    "namespace_use_name": {
+                                                        "kind": "qualified_name",
+                                                        "qualified_name_parts": {
+                                                            "kind": "list",
+                                                            "elements": [
+                                                                {
+                                                                    "kind": "list_item",
+                                                                    "list_item": {
+                                                                        "kind": "missing"
+                                                                    },
+                                                                    "list_separator": {
+                                                                        "kind": "token",
+                                                                        "token": {
+                                                                            "kind": "\\",
+                                                                            "text": "\\",
+                                                                            "offset": 96,
+                                                                            "leading_width": 0,
+                                                                            "width": 1,
+                                                                            "trailing_width": 0,
+                                                                            "leading": [],
+                                                                            "trailing": [],
+                                                                            "line_number": 9
+                                                                        }
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "kind": "list_item",
+                                                                    "list_item": {
+                                                                        "kind": "token",
+                                                                        "token": {
+                                                                            "kind": "name",
+                                                                            "text": "codeneric",
+                                                                            "offset": 97,
+                                                                            "leading_width": 0,
+                                                                            "width": 9,
+                                                                            "trailing_width": 0,
+                                                                            "leading": [],
+                                                                            "trailing": [],
+                                                                            "line_number": 9
+                                                                        }
+                                                                    },
+                                                                    "list_separator": {
+                                                                        "kind": "token",
+                                                                        "token": {
+                                                                            "kind": "\\",
+                                                                            "text": "\\",
+                                                                            "offset": 106,
+                                                                            "leading_width": 0,
+                                                                            "width": 1,
+                                                                            "trailing_width": 0,
+                                                                            "leading": [],
+                                                                            "trailing": [],
+                                                                            "line_number": 9
+                                                                        }
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "kind": "list_item",
+                                                                    "list_item": {
+                                                                        "kind": "token",
+                                                                        "token": {
+                                                                            "kind": "name",
+                                                                            "text": "blub",
+                                                                            "offset": 107,
+                                                                            "leading_width": 0,
+                                                                            "width": 4,
+                                                                            "trailing_width": 0,
+                                                                            "leading": [],
+                                                                            "trailing": [],
+                                                                            "line_number": 9
+                                                                        }
+                                                                    },
+                                                                    "list_separator": {
+                                                                        "kind": "missing"
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    "namespace_use_as": {
+                                                        "kind": "missing"
+                                                    },
+                                                    "namespace_use_alias": {
+                                                        "kind": "missing"
+                                                    }
+                                                },
+                                                "list_separator": {
+                                                    "kind": "missing"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "namespace_use_semicolon": {
+                                        "kind": "token",
+                                        "token": {
+                                            "kind": ";",
+                                            "text": ";",
+                                            "offset": 111,
+                                            "leading_width": 0,
+                                            "width": 1,
+                                            "trailing_width": 1,
+                                            "leading": [],
+                                            "trailing": [
+                                                {
+                                                    "kind": "end_of_line",
+                                                    "text": "\n",
+                                                    "offset": 112,
+                                                    "width": 1
+                                                }
+                                            ],
+                                            "line_number": 9
+                                        }
+                                    }
+                                },
+                                {
+                                    "kind": "function_declaration",
+                                    "function_attribute_spec": {
+                                        "kind": "missing"
+                                    },
+                                    "function_declaration_header": {
+                                        "kind": "function_declaration_header",
+                                        "function_modifiers": {
+                                            "kind": "missing"
+                                        },
+                                        "function_keyword": {
+                                            "kind": "token",
+                                            "token": {
+                                                "kind": "function",
+                                                "text": "function",
+                                                "offset": 113,
+                                                "leading_width": 2,
+                                                "width": 8,
+                                                "trailing_width": 1,
+                                                "leading": [
+                                                    {
+                                                        "kind": "whitespace",
+                                                        "text": "  ",
+                                                        "offset": 113,
+                                                        "width": 2
+                                                    }
+                                                ],
+                                                "trailing": [
+                                                    {
+                                                        "kind": "whitespace",
+                                                        "text": " ",
+                                                        "offset": 123,
+                                                        "width": 1
+                                                    }
+                                                ],
+                                                "line_number": 10
+                                            }
+                                        },
+                                        "function_ampersand": {
+                                            "kind": "missing"
+                                        },
+                                        "function_name": {
+                                            "kind": "token",
+                                            "token": {
+                                                "kind": "name",
+                                                "text": "f",
+                                                "offset": 124,
+                                                "leading_width": 0,
+                                                "width": 1,
+                                                "trailing_width": 0,
+                                                "leading": [],
+                                                "trailing": [],
+                                                "line_number": 10
+                                            }
+                                        },
+                                        "function_type_parameter_list": {
+                                            "kind": "missing"
+                                        },
+                                        "function_left_paren": {
+                                            "kind": "token",
+                                            "token": {
+                                                "kind": "(",
+                                                "text": "(",
+                                                "offset": 125,
+                                                "leading_width": 0,
+                                                "width": 1,
+                                                "trailing_width": 0,
+                                                "leading": [],
+                                                "trailing": [],
+                                                "line_number": 10
+                                            }
+                                        },
+                                        "function_parameter_list": {
+                                            "kind": "list",
+                                            "elements": [
+                                                {
+                                                    "kind": "list_item",
+                                                    "list_item": {
+                                                        "kind": "parameter_declaration",
+                                                        "parameter_attribute": {
+                                                            "kind": "missing"
+                                                        },
+                                                        "parameter_visibility": {
+                                                            "kind": "missing"
+                                                        },
+                                                        "parameter_call_convention": {
+                                                            "kind": "missing"
+                                                        },
+                                                        "parameter_type": {
+                                                            "kind": "simple_type_specifier",
+                                                            "simple_type_specifier": {
+                                                                "kind": "qualified_name",
+                                                                "qualified_name_parts": {
+                                                                    "kind": "list",
+                                                                    "elements": [
+                                                                        {
+                                                                            "kind": "list_item",
+                                                                            "list_item": {
+                                                                                "kind": "token",
+                                                                                "token": {
+                                                                                    "kind": "name",
+                                                                                    "text": "blub",
+                                                                                    "offset": 126,
+                                                                                    "leading_width": 0,
+                                                                                    "width": 4,
+                                                                                    "trailing_width": 0,
+                                                                                    "leading": [],
+                                                                                    "trailing": [],
+                                                                                    "line_number": 10
+                                                                                }
+                                                                            },
+                                                                            "list_separator": {
+                                                                                "kind": "token",
+                                                                                "token": {
+                                                                                    "kind": "\\",
+                                                                                    "text": "\\",
+                                                                                    "offset": 130,
+                                                                                    "leading_width": 0,
+                                                                                    "width": 1,
+                                                                                    "trailing_width": 0,
+                                                                                    "leading": [],
+                                                                                    "trailing": [],
+                                                                                    "line_number": 10
+                                                                                }
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            "kind": "list_item",
+                                                                            "list_item": {
+                                                                                "kind": "token",
+                                                                                "token": {
+                                                                                    "kind": "name",
+                                                                                    "text": "b",
+                                                                                    "offset": 131,
+                                                                                    "leading_width": 0,
+                                                                                    "width": 1,
+                                                                                    "trailing_width": 1,
+                                                                                    "leading": [],
+                                                                                    "trailing": [
+                                                                                        {
+                                                                                            "kind": "whitespace",
+                                                                                            "text": " ",
+                                                                                            "offset": 132,
+                                                                                            "width": 1
+                                                                                        }
+                                                                                    ],
+                                                                                    "line_number": 10
+                                                                                }
+                                                                            },
+                                                                            "list_separator": {
+                                                                                "kind": "missing"
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        },
+                                                        "parameter_name": {
+                                                            "kind": "token",
+                                                            "token": {
+                                                                "kind": "variable",
+                                                                "text": "$a",
+                                                                "offset": 133,
+                                                                "leading_width": 0,
+                                                                "width": 2,
+                                                                "trailing_width": 0,
+                                                                "leading": [],
+                                                                "trailing": [],
+                                                                "line_number": 10
+                                                            }
+                                                        },
+                                                        "parameter_default_value": {
+                                                            "kind": "missing"
+                                                        }
+                                                    },
+                                                    "list_separator": {
+                                                        "kind": "missing"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "function_right_paren": {
+                                            "kind": "token",
+                                            "token": {
+                                                "kind": ")",
+                                                "text": ")",
+                                                "offset": 135,
+                                                "leading_width": 0,
+                                                "width": 1,
+                                                "trailing_width": 0,
+                                                "leading": [],
+                                                "trailing": [],
+                                                "line_number": 10
+                                            }
+                                        },
+                                        "function_colon": {
+                                            "kind": "token",
+                                            "token": {
+                                                "kind": ":",
+                                                "text": ":",
+                                                "offset": 136,
+                                                "leading_width": 0,
+                                                "width": 1,
+                                                "trailing_width": 0,
+                                                "leading": [],
+                                                "trailing": [],
+                                                "line_number": 10
+                                            }
+                                        },
+                                        "function_type": {
+                                            "kind": "simple_type_specifier",
+                                            "simple_type_specifier": {
+                                                "kind": "token",
+                                                "token": {
+                                                    "kind": "void",
+                                                    "text": "void",
+                                                    "offset": 137,
+                                                    "leading_width": 0,
+                                                    "width": 4,
+                                                    "trailing_width": 0,
+                                                    "leading": [],
+                                                    "trailing": [],
+                                                    "line_number": 10
+                                                }
+                                            }
+                                        },
+                                        "function_where_clause": {
+                                            "kind": "missing"
+                                        }
+                                    },
+                                    "function_body": {
+                                        "kind": "compound_statement",
+                                        "compound_left_brace": {
+                                            "kind": "token",
+                                            "token": {
+                                                "kind": "{",
+                                                "text": "{",
+                                                "offset": 141,
+                                                "leading_width": 0,
+                                                "width": 1,
+                                                "trailing_width": 0,
+                                                "leading": [],
+                                                "trailing": [],
+                                                "line_number": 10
+                                            }
+                                        },
+                                        "compound_statements": {
+                                            "kind": "missing"
+                                        },
+                                        "compound_right_brace": {
+                                            "kind": "token",
+                                            "token": {
+                                                "kind": "}",
+                                                "text": "}",
+                                                "offset": 142,
+                                                "leading_width": 0,
+                                                "width": 1,
+                                                "trailing_width": 1,
+                                                "leading": [],
+                                                "trailing": [
+                                                    {
+                                                        "kind": "end_of_line",
+                                                        "text": "\n",
+                                                        "offset": 143,
+                                                        "width": 1
+                                                    }
+                                                ],
+                                                "line_number": 10
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        "namespace_right_brace": {
+                            "kind": "token",
+                            "token": {
+                                "kind": "}",
+                                "text": "}",
+                                "offset": 144,
+                                "leading_width": 0,
+                                "width": 1,
+                                "trailing_width": 1,
+                                "leading": [],
+                                "trailing": [
+                                    {
+                                        "kind": "end_of_line",
+                                        "text": "\n",
+                                        "offset": 145,
+                                        "width": 1
+                                    }
+                                ],
+                                "line_number": 11
+                            }
+                        }
+                    }
+                },
+                {
+                    "kind": "end_of_file",
+                    "end_of_file_token": {
+                        "kind": "token",
+                        "token": {
+                            "kind": "end_of_file",
+                            "text": "",
+                            "offset": 146,
+                            "leading_width": 0,
+                            "width": 0,
+                            "trailing_width": 0,
+                            "leading": [],
+                            "trailing": [],
+                            "line_number": 12
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "program_text": "<?hh //strict\n\n\nnamespace codeneric\\type {\n  type b = shape();\n\n}\nnamespace codeneric\\x {\n  use \\codeneric\\blub;\n  function f(blub\\b $a):void{}\n}\n",
+    "version": "2018-05-18-0001"
+}

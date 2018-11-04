@@ -957,6 +957,10 @@ function transpile(
   );
 }
 
+type hooks = shape(
+  "ast_after_transpile" => ?(function(EditableNode): EditableNode),
+);
+
 
 function run(string $filename): string {
   $en = \Facebook\HHAST\from_file($filename);

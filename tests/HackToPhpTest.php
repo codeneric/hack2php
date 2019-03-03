@@ -14,7 +14,8 @@ namespace Facebook\HHAST;
 use function Facebook\FBExpect\expect;
 use namespace HH\Lib\{C, Str, Vec};
 
-final class HackToPHPTest extends \PHPUnit\Framework\TestCase {
+final class HackToPhpTest extends \Facebook\HackTest\HackTest {
+  const string TEST_CODE_DIR = '/example-files';
 
   private function rglob(string $pattern, int $flags = 0): array<string> {
     $files = \glob($pattern, $flags);
@@ -28,28 +29,32 @@ final class HackToPHPTest extends \PHPUnit\Framework\TestCase {
     }
     return $files;
   }
+
   public function testPHPOnlyFeature(): void {
     $d = \dirname(\dirname(__FILE__));
-    $t = "$d/example-files/temp";
-    if (!\file_exists($t))
-      \mkdir($t);
 
-    $files = $this->rglob("example-files/*.php");
+    $files = $this->rglob($d.self::TEST_CODE_DIR."/*.php");
     // $files = $this->rglob("example-files/phmm/vendor/giorgiosironi/*.php");
-    $i = 0;
-    echo \count($files)." hack files to compile...";
 
+    echo C\count($files)." hack files to compile...\n";
+
+    $log = \tempnam(\sys_get_temp_dir(), 'hack2php_test_');
+    \file_put_contents($log, \date('Y-m-d_h:i:sP')."\n");
     foreach ($files as $filename) {
 
-      // echo "Testing $filename...\n"; 
-      $tf = "temp_".\basename($filename);
-      $res = \exec("$d/bin/hack2php $filename | php -l ");
+      echo "Testing $filename...\n";
+      $res = \exec("$d/bin/hack2php $filename 2>> $log | php -l ");
       expect($res)->toBeSame(
-        "No syntax errors detected in -",
-        "Syntax error in file $filename:\n$res",
+        "No syntax errors detected in Standard input code",
+        "PHP Syntax error in file $filename:\n$res",
       );
     }
 
+    expect(\filesize($log))->toBeSame(
+      26,
+      "Error while compiling.\nLog: %s ",
+      $log,
+    );
 
   }
 }

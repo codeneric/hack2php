@@ -1,20 +1,5 @@
 {
   "roots": [
-    "example-files/"
-  ],
-  "builtinLinters": "none",
-  "namespaceAliases": {
-    "HHAST": "Facebook\\HHAST\\Linters"
-  },
-  "extraLinters": [
-    "HHAST\\HackToPHPLinter"
-  ],
-  "overrides": [
-    {
-      "patterns": [
-        "codegen/*"
-      ],
-      "disableAllAutoFixes": true
-    }
+    "src/", "bin/"
   ]
 }

@@ -1,0 +1,19 @@
+{
+    "roots": [
+    ],
+    "builtinLinters": "none",
+    "namespaceAliases": {
+        "HHAST": "Facebook\\HHAST\\Linters"
+    },
+    "extraLinters": [
+        "HHAST\\HackToPHPLinter"
+    ],
+    "overrides": [
+        {
+            "patterns": [
+                "codegen/*"
+            ],
+            "disableAllAutoFixes": true
+        }
+    ]
+}

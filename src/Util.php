@@ -2,7 +2,7 @@
 
 namespace codeneric\util;
 
-use type Facebook\HHAST\{LambdaExpression, EditableNode, VariableExpression};
+use type Facebook\HHAST\LambdaExpression;
 
 type error_message = shape(
     "descr" => string,

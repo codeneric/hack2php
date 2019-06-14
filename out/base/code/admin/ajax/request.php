@@ -13,7 +13,7 @@ class Request {
 
   public static function getPayload(){
     $P = Superglobals::Post();
-\HH\invariant(      array_key_exists('payload', $P),
+\HH\invariant(      \array_key_exists('payload', $P),
       '%s',
       new Error('Payload not set'));
 \HH\invariant(      is_string($P['payload']),
@@ -37,12 +37,12 @@ $error = null,
 $statusCode = 422  ){
 
     $e = is_string($error) ? self::makeError($error) : $error;
-    wp_send_json_error(array("error" => $e), $statusCode);
+    \wp_send_json_error(array("error" => $e), $statusCode);
 
   }
 
   public static function resolveValidRequest($response){
-    wp_send_json_success(["data" => $response]);
+    \wp_send_json_success(["data" => $response]);
 
     return $response;
   }

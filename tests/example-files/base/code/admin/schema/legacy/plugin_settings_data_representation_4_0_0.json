@@ -1,0 +1,69 @@
+{
+    "additionalProperties": true,
+    "properties": {
+        "enable_slider": {
+            "type": "boolean",
+            "default": true
+        },
+        "slider_theme": {
+            "type": "string",
+            "default": "dark",
+            "enum": [
+                "dark",
+                "light"
+            ]
+        },
+        "page_template": {
+            "type": "string",
+            "default": "phmm-theme-default"
+        },
+        "accent_color": {
+            "type": "string",
+            "default": "#0085ba"
+        },
+        "hide_admin_bar": {
+            "type": "boolean",
+            "default": true
+        },
+        "portal_page_id": {
+            "type": [
+                "null",
+                "integer"
+            ],
+            "default": null
+        },
+        "email_recipients": {
+            "type": "array",
+            "default": [],
+            "items": {
+                "type": "string"
+            }
+        },
+        "custom_css": {
+            "type": "string",
+            "default": ""
+        },
+        "max_zip_part_size": {
+            "type": "integer",
+            "default": 4000
+        },
+        "watermark": {
+            "$ref": "file://watermark.json#"
+        },
+        "remove_images_on_project_deletion": {
+            "type": "boolean",
+            "default": false
+        },
+        "canned_emails": {
+            "type": "array",
+            "default": [],
+            "items": {
+                "$ref": "file://canned_email.json#"
+            }
+        }
+    },
+    "type": "object",
+    "required": [
+        "watermark"
+    ]
+}

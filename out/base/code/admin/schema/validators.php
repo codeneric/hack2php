@@ -33,7 +33,7 @@ class Handler {
 $data,
 $schema  ){
     $schemaStorage = self::init($schema);
-    
+
     $validatorFactory = new \JsonSchema\Constraints\Factory($schemaStorage);
     // list($schemaStorage, $validatorFactory) = self::init($schema);
 
@@ -45,7 +45,7 @@ $schema  ){
       $json,
       // \JsonSchema\Constraints\Constraint::CHECK_MODE_TYPE_CAST |
       \JsonSchema\Constraints\Constraint::CHECK_MODE_APPLY_DEFAULTS |
-      \JsonSchema\Constraints\Constraint::CHECK_MODE_COERCE_TYPES // \JsonSchema\Constraints\Constraint::CHECK_MODE_EXCEPTIONS,
+        \JsonSchema\Constraints\Constraint::CHECK_MODE_COERCE_TYPES      // \JsonSchema\Constraints\Constraint::CHECK_MODE_EXCEPTIONS,
     );
     $validator->reset();
 
@@ -53,7 +53,7 @@ $schema  ){
       $data,
       $json,
       \JsonSchema\Constraints\Constraint::CHECK_MODE_NORMAL |
-      \JsonSchema\Constraints\Constraint::CHECK_MODE_TYPE_CAST // \JsonSchema\Constraints\Constraint::CHECK_MODE_EXCEPTIONS,
+        \JsonSchema\Constraints\Constraint::CHECK_MODE_TYPE_CAST      // \JsonSchema\Constraints\Constraint::CHECK_MODE_EXCEPTIONS,
     );
 
     return array($data, $validator);
@@ -293,11 +293,11 @@ $data  ){
 }
 
 function image($data){
-  $func = function(
-$data  ){
-    list($d, $v) = Handler::validate($data, "image.json");
-    return /*UNSAFE_EXPR*/ array($d, $v);
-  };
+  $func =
+    function($data){
+      list($d, $v) = Handler::validate($data, "image.json");
+      return /*UNSAFE_EXPR*/ array($d, $v);
+    };
   //use the magic function
   list($d, $v) = $func($data);
 \HH\invariant(    $v->isValid(),
@@ -488,9 +488,26 @@ $data  ){
 }
 
 function event($data){
+  $func =
+    function($data){
+      list($d, $v) = Handler::validate($data, "event.json");
+      return /*UNSAFE_EXPR*/ array($d, $v);
+    };
+  //use the magic function
+  list($d, $v) = $func($data);
+\HH\invariant(    $v->isValid(),
+    '%s',
+    new Error('Params are not valid!', $v->getErrors()));
+  return $d;
+}
+
+
+function get_original_image_url_request(
+$data){
   $func = function(
 $data  ){
-    list($d, $v) = Handler::validate($data, "event.json");
+    list($d, $v) =
+      Handler::validate($data, "get_original_image_url_request.json");
     return /*UNSAFE_EXPR*/ array($d, $v);
   };
   //use the magic function
@@ -502,10 +519,28 @@ $data  ){
 }
 
 
-function get_original_image_url_request($data){
+function get_project_titles_by_registration_code(
+$data){
   $func = function(
 $data  ){
-    list($d, $v) = Handler::validate($data, "get_original_image_url_request.json");
+    list($d, $v) =
+      Handler::validate($data, "get_project_titles_by_registration_code.json");
+    return /*UNSAFE_EXPR*/ array($d, $v);
+  };
+  //use the magic function
+  list($d, $v) = $func($data);
+\HH\invariant(    $v->isValid(),
+    '%s',
+    new Error('Params are not valid!', $v->getErrors()));
+  return $d;
+}
+
+
+function f2bi_register_user(
+$data){
+  $func = function(
+$data  ){
+    list($d, $v) = Handler::validate($data, "f2bi_register_user.json");
     return /*UNSAFE_EXPR*/ array($d, $v);
   };
   //use the magic function

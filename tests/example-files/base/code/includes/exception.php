@@ -1,4 +1,3 @@
-<?hh //strict
+<?php //strict
 
 class PhmmFatalInvariantException extends \Exception {}
-

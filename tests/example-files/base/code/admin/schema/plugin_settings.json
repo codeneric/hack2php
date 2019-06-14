@@ -25,6 +25,10 @@
       "type": "boolean",
       "default": true
     },
+    "analytics_opt_in": {
+      "type": "boolean",
+      "default": false
+    },
     "portal_page_id": {
       "type": [
         "null",

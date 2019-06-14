@@ -125,7 +125,7 @@ $accepted_args  ){
   public function run(){
 
     foreach ($this->filters as $hook) {
-      add_filter(
+      \add_filter(
         $hook['hook'],
         array($hook['component'], $hook['callback']),
         $hook['priority'],
@@ -136,7 +136,7 @@ $accepted_args  ){
       if ($hook['component'] instanceof Labels) {
         // var_dump($hook);
       }
-      add_action(
+      \add_action(
         $hook['hook'],
         array($hook['component'], $hook['callback']),
         $hook['priority'],

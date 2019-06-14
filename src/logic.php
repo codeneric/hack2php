@@ -392,12 +392,14 @@ use type \Facebook\HHAST\{
   EditableNode,
   Missing,
   EditableList,
+  EditableToken,
 
 };
 use function \Facebook\HHAST\{Missing, find_position, find_offset};
 use namespace \Facebook\TypeAssert;
 use namespace \HH\Lib\{C, Vec};
 
+require_once __DIR__.'/Util.php';
 
 function ast_from_code(string $code): EditableNode {
   $ast = \Facebook\HHAST\from_code($code);
@@ -592,9 +594,36 @@ function transpile(
 
     if ($child instanceof FunctionCallExpression) {
       $receiver = $child->getReceiver();
-      if ($receiver instanceof NameToken) {
-        $text = $receiver->getText();
-        if ($text === 'invariant') {
+
+      // if ($receiver instanceof NameToken) {
+      //   $text = $receiver->getText();
+      //   echo "\nNameToken: |$text|\n";
+      //   if ($text === 'invariant') {
+      //     // $code = '\\HH\\'.$child->getCode();
+      //     $args_list = $child->getArgumentList()?->getCode();
+      //     $sub_ast = ast_from_code(
+      //       "\\HH\\invariant($args_list)",
+      //     ); //removes leadning and trailing arrays
+      //     $node = $node->replace($child, $sub_ast);
+      //   }
+      // }
+
+      if (
+        $receiver instanceof QualifiedName || $receiver instanceof NameToken
+      ) {
+        // $text = $receiver->getParts()->getCode();
+        $fn = '';
+        // $a = $receiver->getParts();
+        $a = $receiver->getDescendantsOfType(EditableToken::class);
+        // \var_dump($a);
+        foreach ($a as $b) {
+
+          $fn .= $b->getText();
+
+        }
+        // echo "\QualifiedName: |$fn|\n";
+
+        if ($fn === 'invariant') {
           // $code = '\\HH\\'.$child->getCode();
           $args_list = $child->getArgumentList()?->getCode();
           $sub_ast = ast_from_code(
@@ -602,6 +631,17 @@ function transpile(
           ); //removes leadning and trailing arrays
           $node = $node->replace($child, $sub_ast);
         }
+
+        // if ($fn === '\\__' || $fn === '__') {
+        //   $args_list = $child->getArgumentList();
+        //   if (!\is_null($args_list) && \count($args_list->getItems()) === 1) {
+        //     $args_list_code = $args_list->getCode();
+        //     $sub_ast = ast_from_code(
+        //       "$fn($args_list_code, 'photography-management')",
+        //     ); //removes leadning and trailing arrays
+        //     $node = $node->replace($child, $sub_ast);
+        //   }
+        // }
       }
 
 
@@ -912,6 +952,7 @@ function transpile(
     $node instanceof YieldExpression ||
     $node instanceof AnonymousClass ||
     $node instanceof CollectionLiteralExpression ||
+    $node instanceof EmbeddedSubscriptExpression ||
     $node instanceof AliasDeclaration
   ) {
     $php = interate_children($node, $parents, $php);

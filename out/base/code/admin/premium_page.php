@@ -10,10 +10,10 @@ class PremiumPage {
 
   public static function add_page(){
 
-    add_submenu_page(
+    \add_submenu_page(
       'edit.php?post_type='.Configuration::get()['client_post_type'],
-      'PHMM '.__('Premium'),
-      __('Premium'),
+      'PHMM '.\__('Premium'),
+      \__('Premium'),
       'manage_options',
       self::page_name,
       array(self::class, 'render_page')    );
@@ -22,7 +22,7 @@ class PremiumPage {
 
   public static function render_page(){
 
-    $title = "<h2>".__('Premium Page')."</h2>";
+    $title = "<h2>".\__('Premium Page')."</h2>";
 
     // $settings = self::getCurrentSettings();
 
@@ -30,7 +30,7 @@ class PremiumPage {
 
     $fbJoin =
       "<strong>".
-      __(
+      \__(
         'Join our <a style=\'color: coral\' target=\'_blank\' href=\'https:\/\/www.facebook.com/groups/1529247670736165/\'>facebook group</a> to get immediate help or get in contact with other photographers using WordPress!',
         Configuration::get()['plugin_name']      ).
       "</strong>";

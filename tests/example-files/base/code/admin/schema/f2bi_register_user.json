@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "user_email": {
+      "type": "string"
+    },
+    "user_login": {
+      "type": "string"
+    },
+    "user_pass": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "code",
+    "first_name",
+    "last_name",
+    "user_email",
+    "user_login",
+    "user_pass"
+  ],
+  "type": "object"
+}

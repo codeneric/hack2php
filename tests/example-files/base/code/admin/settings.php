@@ -1,10 +1,9 @@
-<?hh //strict
-
+<?php //strict
 namespace codeneric\phmm\base\admin;
-use codeneric\phmm\Configuration;
-use codeneric\phmm\base\frontend\Shortcodes;
+use \codeneric\phmm\Configuration;
+use \codeneric\phmm\base\frontend\Shortcodes;
 
-use codeneric\phmm\base\includes\Error;
+use \codeneric\phmm\base\includes\Error;
 
 class Settings {
 
@@ -67,19 +66,17 @@ class Settings {
   //   );
 
   // }
-  public static function init(): void {
-    register_setting(
+  public static function init(){
+    \register_setting(
       self::option_group,
       self::option_name,
-      array(self::class, 'sanitize_option'),
-    );
+      array(self::class, 'sanitize_option')    );
 
-    add_settings_section(
+    \add_settings_section(
       self::option_section,
       '',
       array(self::class, 'settings_section_callback'),
-      self::option_group,
-    );
+      self::option_group    );
 
     // invariant(false, '%s', new Error('Getting options; expected array'));
 
@@ -87,11 +84,10 @@ class Settings {
 
   }
   public static function sanitize_option(
-    ?array<string, mixed> $options,
-  ): array<string, mixed> {
+$options  ){
 
     // $options = null;
-    if (is_null($options))
+    if (\is_null($options))
       return [];
 
     /*
@@ -104,9 +100,10 @@ class Settings {
       "hide_admin_bar",
       "enable_slider",
       "remove_images_on_project_deletion",
+      "analytics_opt_in",
     ];
     foreach ($booleanOptions as $key) {
-      if (!array_key_exists($key, $options))
+      if (!\array_key_exists($key, $options))
         $options[$key] = null;
     }
     // var_dump($options);
@@ -118,13 +115,14 @@ class Settings {
       switch ($key) {
         case 'enable_slider':
         case 'remove_images_on_project_deletion':
+        case 'analytics_opt_in':
         case 'hide_admin_bar':
-          $state = is_bool($value) ? $value : !is_null($value);
+          $state = is_bool($value) ? $value : !\is_null($value);
           break;
 
         case 'canned_emails':
           if (is_array($value))
-            $state = array_values($value); else
+            $state = \array_values($value); else
             $state = $value;
 
           break;
@@ -156,24 +154,23 @@ class Settings {
     return $return;
 
   }
-  public static function settings_section_callback(): void {}
+  public static function settings_section_callback(){}
 
-  public static function add_settings_page(): void {
+  public static function add_settings_page(){
 
-    add_submenu_page(
+    \add_submenu_page(
       'edit.php?post_type='.Configuration::get()['client_post_type'],
-      'PHMM '.__('Settings'),
-      __('Settings'),
+      'PHMM '.\__('Settings'),
+      \__('Settings'),
       'manage_options',
       self::page_name,
-      array(self::class, 'render_add_submenu_page'),
-    );
+      array(self::class, 'render_add_submenu_page')    );
 
   }
 
-  public static function render_add_submenu_page(): void {
+  public static function render_add_submenu_page(){
 
-    $title = "<h2>".__('Settings')."</h2>";
+    $title = "<h2>".\__('Settings')."</h2>";
 
     // $settings = self::getCurrentSettings();
 
@@ -181,19 +178,18 @@ class Settings {
 
     $fbJoin =
       "<strong>".
-      __(
+      \__(
         'Join our <a style=\'color: coral\' target=\'_blank\' href=\'https:\/\/www.facebook.com/groups/1529247670736165/\'>facebook group</a> to get immediate help or get in contact with other photographers using WordPress!',
-        Configuration::get()['plugin_name'],
-      ).
+        Configuration::get()['plugin_name']      ).
       "</strong>";
 
     echo "<form action='options.php' method='post'>
             $title
       <div class='postbox'>
                 <div class='inside'>";
-    wp_nonce_field();
-    settings_fields(self::option_group);
-    do_settings_sections(self::option_group);
+    \wp_nonce_field();
+    \settings_fields(self::option_group);
+    \do_settings_sections(self::option_group);
 
     echo
       "<div id='cc_phmm_settings'  >
@@ -208,26 +204,33 @@ class Settings {
   }
 
   public static function getCurrentSettings(
-  ): \codeneric\phmm\type\plugin_settings {
-    $settings = get_option(self::option_name, array());
-
-    invariant(
-      is_array($settings),
+  ){
+    $settings = \get_option(self::option_name, array());
+\HH\invariant(      is_array($settings),
       '%s',
-      new Error('Getting options; expected array'),
-    );
+      new Error('Getting options; expected array'));
 
     // update_option(self::option_name, array());
     $defaultSettings = self::getDefaultSettings();
 
-    $merged = array_merge($defaultSettings, $settings);
+    $merged = \array_merge($defaultSettings, $settings);
     // wp_die(var_dump($merged));
 
     return $merged;
   }
 
+  public static function updateSettings(
+$settings  ){
+    $defaultSettings = self::getDefaultSettings();
+
+    $merged = \array_merge($defaultSettings, $settings);
+
+    \update_option(self::option_name, $merged);
+
+  }
+
   public static function getDefaultSettings(
-  ): \codeneric\phmm\type\plugin_settings {
+  ){
     // return shape(
     //   'hide_admin_bar' => false,
     //   'accent_color' => "#0085ba",
@@ -251,9 +254,7 @@ class Settings {
       [
         'max_zip_part_size' => Configuration::get()['max_zip_part_size'],
         'watermark' => [],
-      ],
-    );
+      ]    );
     return $s;
   }
 }
-

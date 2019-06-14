@@ -1,4 +1,4 @@
-<?hh //strict
+<?php //strict
 /**
  * Created by PhpStorm.
  * User: denis_000
@@ -7,9 +7,8 @@
  */
 
 function Photography_Management_Base_Generate_Htaccess(
-  string $htaccess_path,
-  ?string $new_site_url = null,
-): bool {
+$htaccess_path,
+$new_site_url = null){
   // $upload_dir = wp_upload_dir(); //['basedir'].'/photography_management';
   //   $upload_dir = $upload_dir['baseurl'];
   // $protect_url = plugins_url('load.plain.php', __FILE__);

@@ -4,6 +4,7 @@ namespace codeneric\phmm\base\admin\ajax;
 use \codeneric\phmm\base\includes\Labels;
 use \codeneric\phmm\base\includes\Client;
 use \codeneric\phmm\base\includes\Email;
+use \codeneric\phmm\base\admin\Settings;
 use \codeneric\phmm\base\includes\Image;
 use \codeneric\phmm\base\includes\Project;
 use \codeneric\phmm\base\globals\Superglobals;
@@ -11,8 +12,9 @@ use \codeneric\phmm\base\includes\Error;
 use \codeneric\phmm\Utils;
 use \codeneric\phmm\Configuration;
 use \codeneric\phmm\base\admin\CannedEmail\Handler as CannedEmail;
-use \codeneric\phmm\type as Type;
+use \codeneric\phmm\type\event;
 use \codeneric\phmm\base\includes\Permission;
+use \codeneric\phmm\base\admin\FrontendHandler;
 
 class Endpoints extends Request {
 
@@ -33,7 +35,7 @@ class Endpoints extends Request {
     }
 
     $clientID = Permission::get_client_id_wrt_project($request['project_id']);
-\HH\invariant(      !is_null($clientID),
+\HH\invariant(      !\is_null($clientID),
       '%s',
       new Error(
         'Something went wrong, your are permitted to access the project, but do not have a client_id!'      ));
@@ -60,8 +62,9 @@ class Endpoints extends Request {
     //   return null;
     // }
 
-    if (!\codeneric\phmm\base\includes\Labels::label_exists(
-          $request['label_id']        )) {
+    if (
+      !\codeneric\phmm\base\includes\Labels::label_exists($request['label_id'])
+    ) {
       self::rejectInvalidRequest('Given label does not exist');
       return null;
     }
@@ -82,7 +85,7 @@ class Endpoints extends Request {
           'client_id' => $clientID,
           'project_id' => $request['project_id'],
         )      );
-      do_action("codeneric/phmm/label_images_notification", $event);
+      \do_action("codeneric/phmm/label_images_notification", $event);
       return self::resolveValidRequest(true);
       // return self::resolveValidRequest($request['photo_ids']);
     }
@@ -92,40 +95,61 @@ class Endpoints extends Request {
     return null;
   }
 
-  public static function check_username(
-$t  ){
+  public static function check_username($t){
 
     $request = self::getPayload();
     $request = \codeneric\phmm\validate\check_username($request);
 
-    $username = sanitize_user($request['username']);
-    $valid = strlen($username) > 0;
+    $username = \sanitize_user($request['username']);
+    $valid = \strlen($username) > 0;
     if ($valid) {
-      $valid = validate_username($username);
+      $valid = \validate_username($username);
       if (!$valid)
-        $valid = Helper::validate_username_fallback($username); //better check one more time
+        $valid = Helper::validate_username_fallback(
+          $username        ); //better check one more time
       // username_exists only returns bool on failure
-      $valid = $valid && is_bool(username_exists($username));
+      $valid = $valid && is_bool(\username_exists($username));
     }
 
     self::resolveValidRequest($valid);
     return null;
 
-    // if ($valid)
-    //   return self::resolveValidRequest($valid); else {
-    //   self::rejectInvalidRequest("Username invalid or taken.");
-    //   return null;
-    // }
+  }
+
+  public static function dismiss_admin_notice(){
+
+    $request = self::getPayload();
+\HH\invariant(is_array($request), '%s', new Error('Type error in payload!'));
+\HH\invariant(      \array_key_exists('id', $request) &&
+      \array_key_exists('cooldown_in_seconds', $request),
+      '%s',
+      new Error('Type error in payload!'));
+    $notice_id = $request['id'];
+    $cooldown_in_seconds = (int)$request['cooldown_in_seconds'];
+\HH\invariant(is_string($notice_id), '%s', new Error('Type error in payload!'));
+    $transient = Utils::get_admin_notice_transient_key($notice_id);
+    \set_transient($transient, true, $cooldown_in_seconds);
+
+    self::resolveValidRequest(true);
+
+  }
+
+  public static function analytics_opt_in_allow(){
+
+    $currentSettings = Settings::getCurrentSettings();
+    $currentSettings['analytics_opt_in'] = true;
+    Settings::updateSettings($currentSettings);
+
+    self::resolveValidRequest(true);
   }
 
   public static function update_premium($t){
     $request = self::getPayload();
     $request = \codeneric\phmm\validate\update_premium($request);
 
-    update_option('cc_prem', $request['bool']);
-    delete_option('__temp_site_transiant_54484886');
+    \update_option('cc_prem', $request['bool']);
+    \delete_option('__temp_site_transiant_54484886');
     self::resolveValidRequest(true);
-
   }
 
   public static function check_email(){
@@ -133,14 +157,14 @@ $t  ){
     $request = self::getPayload();
     $request = \codeneric\phmm\validate\check_email($request);
 
-    $email = sanitize_email($request['email']);
+    $email = \sanitize_email($request['email']);
 
-    if (!is_email($email)) {
+    if (!\is_email($email)) {
       self::rejectInvalidRequest("Invalid email", 200);
       return false;
     }
 
-    $user = get_user_by('email', $email);
+    $user = \get_user_by('email', $email);
 
     // get_user_by returned false, therefore the email is free
 
@@ -153,7 +177,7 @@ $t  ){
 
       $id = Client::get_client_id_from_wp_user_id($user->ID);
 
-      if (is_null($id))
+      if (\is_null($id))
         return self::resolveValidRequest(false);
 
       if ($id === $request['client_id'])
@@ -170,11 +194,11 @@ $t  ){
     $map = function($ID) use ($request) {
       $pid = $request['project_id'];
       $query_args = [];
-      if (!is_null($pid))
+      if (!\is_null($pid))
         $query_args = ['project_id' => "$pid"];
       $image = \codeneric\phmm\base\includes\Image::get_image(
         $ID,
-        true,
+        $request['mini_thumbs'],
         $query_args      );
       if (is_array($image))
         return $image;
@@ -182,7 +206,7 @@ $t  ){
       return array('id' => $ID, 'error' => true);
     };
 
-    $result = array_map($map, $request['IDs']);
+    $result = \array_map($map, $request['IDs']);
 
     return self::resolveValidRequest($result);
   }
@@ -196,13 +220,12 @@ $t  ){
 
     $to = $config['support_email'];
 
-    $subject = sanitize_text_field($request['subject']);
+    $subject = \sanitize_text_field($request['subject']);
 
-    $headers = [
-      'From: "'.$request['name'].'" <'.sanitize_email($request['email']).'>',
-    ];
+    $headers =
+      ['From: "'.$request['name'].'" <'.\sanitize_email($request['email']).'>'];
 
-    $message = sanitize_text_field($request['content']);
+    $message = \sanitize_text_field($request['content']);
 
     // $meta = "---------- START META DATA ----------".PHP_EOL;
     $meta_payload = [];
@@ -212,21 +235,20 @@ $t  ){
     $meta_payload['topic'] = $request['topic'];
     $crypted = '';
 
-    if (function_exists('openssl_public_encrypt')) {
-      $pub_key = file_get_contents($config["assets"]["crypto"]["pub_key"]);
-      openssl_public_encrypt(json_encode($meta_payload), $crypted, $pub_key);
+    if (\function_exists('openssl_public_encrypt')) {
+      $pub_key = \file_get_contents($config["assets"]["crypto"]["pub_key"]);
+      \openssl_public_encrypt(\json_encode($meta_payload), $crypted, $pub_key);
       $s = Utils::get_temp_file('support_medatada_');
       $resource = $s['resource'];
       $name = $s['name'];
-      fwrite($resource, $crypted);
+      \fwrite($resource, $crypted);
       $mail_attachments = [$name];
 
-      $success =
-        wp_mail($to, $subject, $message, $headers, $mail_attachments);
+      $success = \wp_mail($to, $subject, $message, $headers, $mail_attachments);
 
       Utils::close_and_delete_file($resource, $name);
     } else {
-      $success = wp_mail($to, $subject, $message, $headers);
+      $success = \wp_mail($to, $subject, $message, $headers);
     }
 
     // wp_die(var_dump($success));
@@ -245,64 +267,61 @@ $t  ){
 
     $projects = Client::get_project_ids($request['client_id']);
 
-    $populated =
-      array_map(
-        function($projectID) use ($request) {
+    $populated = \array_map(
+      function($projectID) use ($request) {
 
-          $labels = Labels::get_all_labels();
+        $labels = Labels::get_all_labels();
 
-          $interactionLabels = [];
+        $interactionLabels = [];
 
-          foreach ($labels as $label) {
+        foreach ($labels as $label) {
 
-            $set = Labels::get_set(
-              $request['client_id'],
-              $projectID,
-              $label['id']            );
+          $set =
+            Labels::get_set($request['client_id'], $projectID, $label['id']);
 
-            $interactionLabels[] = array(
-              "project_id" => $projectID,
-              "label_id" => $label['id'],
-              "label_name" => $label['name'],
-              "set" => $set,
-            );
-
-          }
-          $comments = Utils::apply_filter_or(
-            "codeneric/phmm/get_comment_counts",
-            array(
-              "client_id" => $request['client_id'],
-              "project_id" => $projectID,
-            ),
-            []          );
-          $comments = array_map(
-            function($comment) use ($projectID, $request) {
-              return array_merge(
-                $comment,
-                [
-                  "project_id" => $projectID,
-                  "client_id" => $request['client_id'],
-                  "image" => Image::get_image($comment['image_id'], true),
-                ]              );
-
-            },
-            $comments          );
-          return array(
-            "labels" => $interactionLabels,
-            "comments" => $comments,
+          $interactionLabels[] = array(
+            "project_id" => $projectID,
+            "label_id" => $label['id'],
+            "label_name" => $label['name'],
+            "set" => $set,
           );
 
-        },
-        $projects      );
+        }
+        $comments = Utils::apply_filter_or(
+          "codeneric/phmm/get_comment_counts",
+          array(
+            "client_id" => $request['client_id'],
+            "project_id" => $projectID,
+          ),
+          []        );
+        $comments = \array_map(
+          function($comment) use ($projectID, $request) {
+            return \array_merge(
+              $comment,
+              [
+                "project_id" => $projectID,
+                "client_id" => $request['client_id'],
+                "image" => Image::get_image($comment['image_id'], true),
+              ]            );
+
+          },
+          $comments        );
+        return array(
+          "labels" => $interactionLabels,
+          "comments" => $comments,
+        );
+
+      },
+      $projects    );
 
     // die(var_dump($populated));
-    $abc = array_reduce(
+    $abc = \array_reduce(
       $populated,
       function($carry, $item) {
 
         $carry['comments'] =
-          array_merge($carry['comments'], $item['comments']);
-        $carry['labels'] = array_merge($carry['labels'], $item['labels']);
+          \array_merge($carry['comments'], $item['comments']);
+        $carry['labels'] = \array_merge($carry['labels'], $item['labels']);
         return $carry;
       },
       array("comments" => [], "labels" => [])    );
@@ -334,12 +353,18 @@ $t  ){
     $r = self::getPayload();
     $r = \codeneric\phmm\validate\get_original_image_url_request($r);
     $id = $r['image_id'];
-    $query_args = ['project_id' => $r['project_id'] ];
+    $query_args = ['project_id' => $r['project_id']];
     // $request = \codeneric\phmm\validate\update_premium($request);
-    $img_url = Image::get_original_image_url($id, $query_args); 
-    
-    self::resolveValidRequest( $img_url); 
+    $img_url = Image::get_original_image_url($id, $query_args);
 
+    self::resolveValidRequest($img_url);
+
+  }
+
+  public static function set_product_demo_finished(){
+
+    FrontendHandler::set_product_tour_finished();
+    self::resolveValidRequest(true);
   }
 
 }

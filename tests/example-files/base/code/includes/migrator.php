@@ -1,5 +1,4 @@
-<?hh //strict
-
+<?php //strict
 namespace codeneric\phmm;
 require_once plugin_dir_path(dirname(__FILE__)).'includes/requires.php';
 
@@ -12,53 +11,50 @@ class Migrator {
 
   const page_name = 'cc_phmm_migration';
 
-  public static function init(): void {
-    add_action(
+  public static function init(){
+    \add_action(
       'admin_notices',
       function() {
         self::render_notice();
-      },
-    );
+      }    );
 
-    add_action(
+    \add_action(
       "wp_ajax_phmm_migration_progress",
       function() {
         self::request();
-      },
-    );
-    add_action(
+      }    );
+    \add_action(
       "wp_ajax_phmm_migration_running",
       function() {
         self::request_is_running();
-      },
-    );
+      }    );
 
   }
 
-  public static function request(): void {
+  public static function request(){
     try {
 
       $progress = DBUpdater::update(Configuration::get());
-      if (!is_null($progress))
+      if (!\is_null($progress))
         $progress = (int) ($progress * 100);
       Logger::debug("Progress", $progress);
 
-      wp_send_json_success($progress);
+      \wp_send_json_success($progress);
     } catch (\Exception $e) {
       Logger::error("DB Updater raised exception", $e);
-      wp_send_json_error(0);
+      \wp_send_json_error(0);
     }
 
   }
-  public static function request_is_running(): void {
+  public static function request_is_running(){
     $running = \codeneric\phmm\Semaphore::is_running(DBUpdater::$mutex_name);
 
-    wp_send_json_success($running);
+    \wp_send_json_success($running);
   }
 
-  public static function render_notice(): void {
+  public static function render_notice(){
 
-    $pluginsDir = plugins_url("assets/js/", dirname(__FILE__));
+    $pluginsDir = \plugins_url("assets/js/", \dirname(__FILE__));
 
     $class = "error";
 

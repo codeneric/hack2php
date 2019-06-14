@@ -8,6 +8,10 @@ use \codeneric\phmm\enums\ProjectState as projectState;
 use \codeneric\phmm\enums\ProjectDisplay as display;
 use \codeneric\phmm\enums\ClientDisplay as clientDisplay;
 use \codeneric\phmm\enums\PortalDisplay as portalDisplay;
+use \codeneric\phmm\enums\GuestReviewURLParams;
+use \codeneric\phmm\enums\GuestReviewDecisionValues;
+use \codeneric\phmm\base\globals\Superglobals;
+
 
 class Permission {
   public static function current_user_can_access_client($client_id){
@@ -16,17 +20,17 @@ class Permission {
       return true;
 
     $client = Client::get($client_id);
-    if (is_null($client))
+    if (\is_null($client))
       return false; //client does not exist
     $wp_user = $client['wp_user'];
-    if (is_null($wp_user)) {
+    if (\is_null($wp_user)) {
       //                throw new Exception('Client-post password is required, but the post has no owner (wp_user_id is empty).'); //post password is required, but the post has no owner (wp_user_id), something went terribly wrong!
       // Here we are...this post requires a password, but has no owner, i.e. no
       // automatically generated wordpress user (PhMm Client) is assigned to this
       // client-post.
       return false;
     }
-    $current_user = wp_get_current_user();
+    $current_user = \wp_get_current_user();
     if ($current_user === 0)
       return false; //simple...user is not logged in -> dismiss
     return $current_user->ID === $wp_user->ID;
@@ -41,7 +45,7 @@ $project_id  ){
       self::get_client_state_wrt_project($project_state, $project_id);
     $allowed_states = [userState::Admin, userState::Client, userState::Guest];
 
-    return in_array($client_state, $allowed_states);
+    return \in_array($client_state, $allowed_states);
 
   }
 
@@ -54,7 +58,7 @@ $project_id  ){
     switch ($client_state) {
       case userState::Client:
         $client = Client::get_current();
-        return is_null($client) ? null : $client['ID'];
+        return \is_null($client) ? null : $client['ID'];
         break;
       case userState::Admin:
       case userState::Guest:
@@ -85,16 +89,17 @@ $projectID  ){
     //     break;
     // }
 
-    if (!is_user_logged_in()) {
+    if (!\is_user_logged_in()) {
 
       // When no guest login exists
-      if ($projectState !== projectState::PrivateWithGuestLogin &&
-          $projectState !== projectState::PrivateWithGuestLoginNoClientsAssigned // && $projectState !== projectState::Public_
+      if (
+        $projectState !== projectState::PrivateWithGuestLogin &&
+        $projectState !==
+          projectState::PrivateWithGuestLoginNoClientsAssigned // && $projectState !== projectState::Public_
       )
-        return
-          $projectState !== projectState::Public_
-            ? userState::NotLoggedIn
-            : userState::Guest;
+        return $projectState !== projectState::Public_
+          ? userState::NotLoggedIn
+          : userState::Guest;
 
       // no user logged in but we have a guest login.
       // is the user a guest and already provided the pwd?
@@ -102,7 +107,8 @@ $projectID  ){
       $pwdRequired = self::post_password_required($projectID);
 
       if ($pwdRequired)
-        return userState::NotLoggedIn; else
+        return userState::NotLoggedIn;
+      else
         return userState::Guest;
     } else {
       // a user is logged in.
@@ -113,7 +119,7 @@ $projectID  ){
 
       $maybeClient = Client::get_current();
 
-      if (is_null($maybeClient))
+      if (\is_null($maybeClient))
         return userState::LoggedInUserWithNoAccess;
 
       $client = $maybeClient;
@@ -131,14 +137,15 @@ $projectID  ){
     if ($state["private"] === false)
       return projectState::Public_;
 
-    if ($state['password_protection'] === true &&
-        !is_null($state['password']) &&
-        $state['password'] !== "") {
+    if (
+      $state['password_protection'] === true &&
+      !\is_null($state['password']) &&
+      $state['password'] !== ""
+    ) {
 
-      return
-        (Project::is_assigned_to_at_least_one_client($projectID))
-          ? projectState::PrivateWithGuestLogin
-          : projectState::PrivateWithGuestLoginNoClientsAssigned;
+      return (Project::is_assigned_to_at_least_one_client($projectID))
+        ? projectState::PrivateWithGuestLogin
+        : projectState::PrivateWithGuestLoginNoClientsAssigned;
 
     }
 
@@ -160,15 +167,13 @@ $projectID  ){
         return display::ProjectWithClientConfig;
 
       case userState::Admin:
-        return
-          $projectState === projectState::Public_
-            ? display::ProjectWithProjectConfig
-            : display::AdminNotice;
+        return $projectState === projectState::Public_
+          ? display::ProjectWithProjectConfig
+          : display::AdminNotice;
       case userState::Guest:
-        return
-          $projectState === projectState::Private_
-            ? display::LoginForm
-            : display::ProjectWithProjectConfig;
+        return $projectState === projectState::Private_
+          ? display::LoginForm
+          : display::ProjectWithProjectConfig;
       case userState::NotLoggedIn:
         switch ($projectState) {
           case projectState::Private_:
@@ -202,7 +207,7 @@ $projectID  ){
       return portalDisplay::AdminNotice;
 
     $c = Client::get_current();
-    if (is_null($c))
+    if (\is_null($c))
       return portalDisplay::LoginForm;
 
     return portalDisplay::Redirect;
@@ -213,18 +218,64 @@ $projectID  ){
    * Decider function what to display frontend for projects
    */
   public static function display_client($clientID){
+    $G = Superglobals::Get();
+
+    if (
+      \array_key_exists(GuestReviewURLParams::DecisionKey, $G) &&
+      \array_key_exists(GuestReviewURLParams::SecretKey, $G)
+    ) {
+      $decision = $G[(string)GuestReviewURLParams::DecisionKey];
+      $secret = $G[(string)GuestReviewURLParams::SecretKey];
+      if (self::allowed_to_perform_guest_review($clientID, $secret)) {
+        return $decision === GuestReviewDecisionValues::Accept
+          ? clientDisplay::GuestReviewAccepted
+          : clientDisplay::GuestReviewDeclined;
+
+      } else {
+        return clientDisplay::ReviewGuestRequestNotPermitted;
+      }
+    }
+
     if (Utils::is_current_user_admin())
       return clientDisplay::AdminNoticeWithClientView;
 
     $c = Client::get_current();
-    if (is_null($c))
+    if (\is_null($c))
       return clientDisplay::LoginForm;
 
-    if ($c['ID'] === $clientID)
-      return clientDisplay::ClientView; else {
-      return clientDisplay::NoAccess;
+    if (
+      $c['ID'] === $clientID &&
+      !Client::is_guest($clientID) &&
+      !Client::is_pending_review($clientID)
+    ) {
+      return clientDisplay::ClientView;
     }
 
+    if (
+      $c['ID'] === $clientID &&
+      Client::is_guest($clientID) &&
+      !Client::is_pending_review($clientID)
+    ) {
+      return clientDisplay::ClientView;
+    }
+
+    if (
+      $c['ID'] === $clientID &&
+      Client::is_guest($clientID) &&
+      Client::is_pending_review($clientID)
+    ) {
+      return clientDisplay::GuestPendingReview;
+    }
+
+    return clientDisplay::NoAccess;
+
+
+  }
+
+  private static function allowed_to_perform_guest_review(
+$client_id,
+$secret  ){
+    return Client::get_random_review_permission_secret($client_id) === $secret;
   }
 
   public static function post_password_required($post_id){

@@ -1,4 +1,4 @@
-<?hh
+<?php
 /*
  This is a utility fake class
  In hacklang there exists a Shapes class in runtime to do actions on shape types.
@@ -11,4 +11,3 @@ class Shapes {
     return $shape;
   }
 }
-

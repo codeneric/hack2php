@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "definitions": {},
+  "properties": {
+    "registration_code": {
+      "id": "/properties/registration_code",
+      "type": "string"
+    }
+  },
+  "required": [
+    "registration_code"
+  ],
+  "type": "object"
+}

@@ -66,6 +66,11 @@ class Phmm {
 
     $this->loader
       ->add_action('wp_ajax_phmm_star_photo', $ajax, 'label_images');
+    $this->loader->add_action(
+      'wp_ajax_phmm_dismiss_notice',
+      $ajax,
+      'dismiss_admin_notice'    );
+
     $this->loader
       ->add_action('wp_ajax_phmm_send_feedback', $ajax, 'send_feedback');
     $this->loader
@@ -93,26 +98,35 @@ class Phmm {
     $this->loader
       ->add_action('wp_ajax_phmm_check_username', $ajax, 'check_username');
 
+    $this->loader->add_action(
+      'wp_ajax_analytics_opt_in_allow',
+      $ajax,
+      'analytics_opt_in_allow'    );
+
     $this->loader
       ->add_action('wp_ajax_phmm_check_email', $ajax, 'check_email');
-    $this->loader
-      ->add_action('wp_ajax_phmm_get_interactions', $ajax, 'get_interactions');
-    $this->loader
-      ->add_action(
-        'wp_ajax_phmm_get_original_image_url',
-        $ajax,
-        'get_original_image_url'      );
-    $this->loader
-      ->add_action(
-        'wp_ajax_nopriv_phmm_get_original_image_url',
-        $ajax,
-        'get_original_image_url'      );
-
+    $this->loader->add_action(
+      'wp_ajax_phmm_get_interactions',
+      $ajax,
+      'get_interactions'    );
+    $this->loader->add_action(
+      'wp_ajax_phmm_get_original_image_url',
+      $ajax,
+      'get_original_image_url'    );
+    $this->loader->add_action(
+      'wp_ajax_nopriv_phmm_get_original_image_url',
+      $ajax,
+      'get_original_image_url'    );
 
     $this->loader->add_action(
       'wp_ajax_codeneric_phmm_update_premium',
       $ajax,
       'update_premium'    );
+
+    $this->loader->add_action(
+      'wp_ajax_codeneric_phmm_set_product_demo_finished',
+      $ajax,
+      'set_product_demo_finished'    );
 
     $this->loader
       ->add_action('init', $plugin_admin, 'register_client_post_type');
@@ -122,6 +136,11 @@ class Phmm {
     //   $plugin_admin,
     //   'add_custom_image_sizes',
     // );
+
+    $this->loader->add_action(
+      'admin_head',
+      $frontendHandler,
+      'handle_analytics_enqueue'    );
 
     $this->loader->add_action(
       'admin_init',
@@ -166,6 +185,19 @@ class Phmm {
       'admin_init',
       $plugin_admin,
       'add_admin_notice_fast_images_available_for_free'    );
+    $this->loader->add_action(
+      'admin_init',
+      $plugin_admin,
+      'add_admin_notice_rate_the_plugin'    );
+    $this->loader->add_action(
+      'admin_init',
+      $plugin_admin,
+      'add_admin_notice_analytics_opt_in'    );
+
+    $this->loader->add_action(
+      'admin_init',
+      $plugin_admin,
+      'add_admin_notice_update_phmm_fast_images'    );
 
     $this->loader->add_action(
       'add_meta_boxes_'.$config['client_post_type'],
@@ -238,7 +270,7 @@ class Phmm {
       'watermark_image',
       10,
       1    );
-    $this->loader->add_action('deleted_user', Client::class, 'delete_client');
+    $this->loader->add_action('deleted_user', Client::class, 'delete_client_by_wp_user_id');
 
     // $this->loader->add_action(
     //   'wp_after_admin_bar_render',
@@ -355,6 +387,19 @@ class Phmm {
       'template_redirect',
       $plugin_public,
       'redirect_from_portal_page'    );
+    // $this->loader->add_action(
+    //   'template_redirect',
+    //   $plugin_public,
+    //   'redirect_from_client_page',
+    // );
+    $this->loader->add_action(
+      'wp_login_failed',
+      $plugin_public,
+      'login_failed'    );
+    $this->loader->add_action(
+      'pre_get_posts',
+      $plugin_public,
+      'allow_pending_guest_view'    );
 
     // $this->loader->add_filter(
     //   'login_redirect',
@@ -363,13 +408,13 @@ class Phmm {
     //   10,
     //   3,
     // );
-    add_shortcode(
+    \add_shortcode(
       \codeneric\phmm\base\frontend\Shortcodes::GALLERY,
       array($plugin_public, 'gallery_shortcode')    );
-    add_shortcode(
+    \add_shortcode(
       \codeneric\phmm\base\frontend\Shortcodes::CLIENT,
       array($plugin_public, 'client_shortcode')    );
-    add_shortcode(
+    \add_shortcode(
       \codeneric\phmm\base\frontend\Shortcodes::PORTAL,
       array($plugin_public, 'portal_shortcode')    );
   }

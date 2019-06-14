@@ -1,2 +1,1 @@
-<?hh
-// Silence is golden
+<?php

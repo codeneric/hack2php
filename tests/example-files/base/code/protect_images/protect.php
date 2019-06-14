@@ -1,9 +1,9 @@
-<?hh
+<?php
 
-use codeneric\phmm\base\globals\Superglobals;
-use codeneric\phmm\base\includes\Error;
+use \codeneric\phmm\base\globals\Superglobals;
+use \codeneric\phmm\base\includes\Error;
 
-function codeneric_send_image_if_allowed(): void {
+function codeneric_send_image_if_allowed(){
 
   $upload_dir = wp_upload_dir();
   $upload_dir = $upload_dir['basedir'];
@@ -28,8 +28,7 @@ function codeneric_send_image_if_allowed(): void {
   if (\codeneric\phmm\base\protect_images\Main::user_is_permitted(
         $f,
         $attach_id,
-        $project_id,
-      ) ===
+        $project_id      ) ===
       false) {
     if (function_exists('http_response_code'))
       http_response_code(401);
@@ -41,7 +40,5 @@ function codeneric_send_image_if_allowed(): void {
     $f,
     $file_path,
     $project_id,
-    $part,
-  );
+    $part  );
 }
-

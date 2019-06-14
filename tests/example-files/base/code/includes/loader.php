@@ -1,35 +1,5 @@
-<?hh //strict
-
-/**
- * Register all actions and filters for the plugin
- *
- * @link       codeneric.com
- * @since      1.0.0
- *
- * @package    Phmm
- * @subpackage Phmm/includes
- */
-
-/**
- * Register all actions and filters for the plugin.
- *
- * Maintain a list of all hooks that are registered throughout
- * the plugin, and register them with the WordPress API. Call the
- * run function to execute the list of actions and filters.
- *
- * @package    Phmm
- * @subpackage Phmm/includes
- * @author     Codeneric <plugin@codeneric.com>
- */
+<?php //strict
 namespace codeneric\phmm\base\includes;
-
-type addShape = shape(
-  'hook' => string,
-  'component' => mixed,
-  'callback' => string,
-  'priority' => int,
-  'accepted_args' => int,
-);
 
 class Loader {
 
@@ -40,7 +10,7 @@ class Loader {
    * @access   protected
    * @var      array    $actions    The actions registered with WordPress to fire when the plugin loads.
    */
-  protected Vector<addShape> $actions;
+  protected $actions;
 
   /**
    * The array of filters registered with WordPress.
@@ -49,7 +19,7 @@ class Loader {
    * @access   protected
    * @var      array    $filters    The filters registered with WordPress to fire when the plugin loads.
    */
-  protected Vector<addShape> $filters;
+  protected $filters;
 
   /**
    * Initialize the collections used to maintain the actions and filters.
@@ -58,8 +28,8 @@ class Loader {
    */
   public function __construct() {
 
-    $this->actions = Vector {};
-    $this->filters = Vector {};
+    $this->actions = new \HH\Vector(array());
+    $this->filters = new \HH\Vector(array());
 
   }
 
@@ -74,20 +44,18 @@ class Loader {
    * @param    int                  $accepted_args    Optional. The number of arguments that should be passed to the $callback. Default is 1.
    */
   public function add_action(
-    string $hook,
-    mixed $component,
-    string $callback,
-    int $priority = 10,
-    int $accepted_args = 1,
-  ): void {
+$hook,
+$component,
+$callback,
+$priority = 10,
+$accepted_args = 1  ){
     $this->actions = $this->add(
       $this->actions,
       $hook,
       $component,
       $callback,
       $priority,
-      $accepted_args,
-    );
+      $accepted_args    );
   }
 
   /**
@@ -101,20 +69,18 @@ class Loader {
    * @param    int                  $accepted_args    Optional. The number of arguments that should be passed to the $callback. Default is 1
    */
   public function add_filter(
-    string $hook,
-    mixed $component,
-    string $callback,
-    int $priority = 10,
-    int $accepted_args = 1,
-  ): void {
+$hook,
+$component,
+$callback,
+$priority = 10,
+$accepted_args = 1  ){
     $this->filters = $this->add(
       $this->filters,
       $hook,
       $component,
       $callback,
       $priority,
-      $accepted_args,
-    );
+      $accepted_args    );
   }
 
   /**
@@ -132,15 +98,14 @@ class Loader {
    * @return   array                                  The collection of actions and filters registered with WordPress.
    */
   private function add(
-    Vector<addShape> $hooks,
-    string $hook,
-    mixed $component,
-    string $callback,
-    int $priority,
-    int $accepted_args,
-  ): Vector<addShape> {
+$hooks,
+$hook,
+$component,
+$callback,
+$priority,
+$accepted_args  ){
 
-    $hooks[] = shape(
+    $hooks[] = array(
       'hook' => $hook,
       'component' => $component,
       'callback' => $callback,
@@ -157,27 +122,25 @@ class Loader {
    *
    * @since    1.0.0
    */
-  public function run(): void {
+  public function run(){
 
     foreach ($this->filters as $hook) {
-      add_filter(
+      \add_filter(
         $hook['hook'],
         array($hook['component'], $hook['callback']),
         $hook['priority'],
-        $hook['accepted_args'],
-      );
+        $hook['accepted_args']      );
     }
 
     foreach ($this->actions as $hook) {
       if ($hook['component'] instanceof Labels) {
         // var_dump($hook);
       }
-      add_action(
+      \add_action(
         $hook['hook'],
         array($hook['component'], $hook['callback']),
         $hook['priority'],
-        $hook['accepted_args'],
-      );
+        $hook['accepted_args']      );
     }
 
   }

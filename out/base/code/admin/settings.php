@@ -67,12 +67,12 @@ class Settings {
 
   // }
   public static function init(){
-    register_setting(
+    \register_setting(
       self::option_group,
       self::option_name,
       array(self::class, 'sanitize_option')    );
 
-    add_settings_section(
+    \add_settings_section(
       self::option_section,
       '',
       array(self::class, 'settings_section_callback'),
@@ -87,7 +87,7 @@ class Settings {
 $options  ){
 
     // $options = null;
-    if (is_null($options))
+    if (\is_null($options))
       return [];
 
     /*
@@ -100,9 +100,10 @@ $options  ){
       "hide_admin_bar",
       "enable_slider",
       "remove_images_on_project_deletion",
+      "analytics_opt_in",
     ];
     foreach ($booleanOptions as $key) {
-      if (!array_key_exists($key, $options))
+      if (!\array_key_exists($key, $options))
         $options[$key] = null;
     }
     // var_dump($options);
@@ -114,13 +115,14 @@ $options  ){
       switch ($key) {
         case 'enable_slider':
         case 'remove_images_on_project_deletion':
+        case 'analytics_opt_in':
         case 'hide_admin_bar':
-          $state = is_bool($value) ? $value : !is_null($value);
+          $state = is_bool($value) ? $value : !\is_null($value);
           break;
 
         case 'canned_emails':
           if (is_array($value))
-            $state = array_values($value); else
+            $state = \array_values($value); else
             $state = $value;
 
           break;
@@ -156,10 +158,10 @@ $options  ){
 
   public static function add_settings_page(){
 
-    add_submenu_page(
+    \add_submenu_page(
       'edit.php?post_type='.Configuration::get()['client_post_type'],
-      'PHMM '.__('Settings'),
-      __('Settings'),
+      'PHMM '.\__('Settings'),
+      \__('Settings'),
       'manage_options',
       self::page_name,
       array(self::class, 'render_add_submenu_page')    );
@@ -168,7 +170,7 @@ $options  ){
 
   public static function render_add_submenu_page(){
 
-    $title = "<h2>".__('Settings')."</h2>";
+    $title = "<h2>".\__('Settings')."</h2>";
 
     // $settings = self::getCurrentSettings();
 
@@ -176,7 +178,7 @@ $options  ){
 
     $fbJoin =
       "<strong>".
-      __(
+      \__(
         'Join our <a style=\'color: coral\' target=\'_blank\' href=\'https:\/\/www.facebook.com/groups/1529247670736165/\'>facebook group</a> to get immediate help or get in contact with other photographers using WordPress!',
         Configuration::get()['plugin_name']      ).
       "</strong>";
@@ -185,9 +187,9 @@ $options  ){
             $title
       <div class='postbox'>
                 <div class='inside'>";
-    wp_nonce_field();
-    settings_fields(self::option_group);
-    do_settings_sections(self::option_group);
+    \wp_nonce_field();
+    \settings_fields(self::option_group);
+    \do_settings_sections(self::option_group);
 
     echo
       "<div id='cc_phmm_settings'  >
@@ -203,7 +205,7 @@ $options  ){
 
   public static function getCurrentSettings(
   ){
-    $settings = get_option(self::option_name, array());
+    $settings = \get_option(self::option_name, array());
 \HH\invariant(      is_array($settings),
       '%s',
       new Error('Getting options; expected array'));
@@ -211,10 +213,20 @@ $options  ){
     // update_option(self::option_name, array());
     $defaultSettings = self::getDefaultSettings();
 
-    $merged = array_merge($defaultSettings, $settings);
+    $merged = \array_merge($defaultSettings, $settings);
     // wp_die(var_dump($merged));
 
     return $merged;
+  }
+
+  public static function updateSettings(
+$settings  ){
+    $defaultSettings = self::getDefaultSettings();
+
+    $merged = \array_merge($defaultSettings, $settings);
+
+    \update_option(self::option_name, $merged);
+
   }
 
   public static function getDefaultSettings(

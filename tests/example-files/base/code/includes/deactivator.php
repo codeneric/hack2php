@@ -1,25 +1,4 @@
-<?hh //strict
-
-/**
- * Fired during plugin deactivation
- *
- * @link       codeneric.com
- * @since      1.0.0
- *
- * @package    Phmm
- * @subpackage Phmm/includes
- */
-
-/**
- * Fired during plugin deactivation.
- *
- * This class defines all code necessary to run during the plugin's deactivation.
- *
- * @since      1.0.0
- * @package    Phmm
- * @subpackage Phmm/includes
- * @author     Codeneric <plugin@codeneric.com>
- */
+<?php //strict
 namespace codeneric\phmm\base\includes;
 class Deactivator {
 
@@ -30,6 +9,6 @@ class Deactivator {
    *
    * @since    1.0.0
    */
-  public static function deactivate(): void {}
+  public static function deactivate(){}
 
 }

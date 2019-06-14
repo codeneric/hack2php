@@ -18,3 +18,6 @@ RUN \
     && apt-get -y update \
     && apt-get install -y hhvm 
 
+RUN mkdir /hack2php
+COPY . /hack2php
+RUN cd /usr/bin && ln -s /hack2php/bin/hack2php hack2php

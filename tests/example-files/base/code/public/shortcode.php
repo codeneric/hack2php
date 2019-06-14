@@ -1,2 +1,1 @@
-<?hh //strict
-
+<?php //strict

@@ -53,7 +53,7 @@ final class HackToPHPTest extends \PHPUnit\Framework\TestCase {
       $this->assertSame(
         "No syntax errors detected in -",
         $res,
-        "Syntax error in file $filename:\n$res",
+        "Syntax error in file $filename:\n$res\n$php",
       );
     }
 

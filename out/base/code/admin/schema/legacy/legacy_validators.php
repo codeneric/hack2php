@@ -1,6 +1,11 @@
 <?php
 namespace codeneric\phmm\legacy\validate;
-use \codeneric\phmm\legacy;
+use \codeneric\phmm\legacy\type\client_data_representation_4_0_0;
+use \codeneric\phmm\legacy\type\project_data_representation_4_0_0;
+use \codeneric\phmm\legacy\type\client_data_representation_3_6_5;
+use \codeneric\phmm\legacy\type\comment_data_representation_3_6_5;
+use \codeneric\phmm\legacy\type\project_data_representation_3_6_5;
+use \codeneric\phmm\legacy\type\plugin_settings_data_representation_3_6_5;
 use \codeneric\phmm\base\includes\Error;
 
 class Handler {
@@ -37,7 +42,7 @@ $schema  ){
       $json,
       // \JsonSchema\Constraints\Constraint::CHECK_MODE_TYPE_CAST |
       \JsonSchema\Constraints\Constraint::CHECK_MODE_APPLY_DEFAULTS |
-      \JsonSchema\Constraints\Constraint::CHECK_MODE_COERCE_TYPES // \JsonSchema\Constraints\Constraint::CHECK_MODE_EXCEPTIONS,
+        \JsonSchema\Constraints\Constraint::CHECK_MODE_COERCE_TYPES      // \JsonSchema\Constraints\Constraint::CHECK_MODE_EXCEPTIONS,
     );
     $validator->reset();
 
@@ -45,7 +50,7 @@ $schema  ){
       $data,
       $json,
       \JsonSchema\Constraints\Constraint::CHECK_MODE_NORMAL |
-      \JsonSchema\Constraints\Constraint::CHECK_MODE_TYPE_CAST // \JsonSchema\Constraints\Constraint::CHECK_MODE_EXCEPTIONS,
+        \JsonSchema\Constraints\Constraint::CHECK_MODE_TYPE_CAST      // \JsonSchema\Constraints\Constraint::CHECK_MODE_EXCEPTIONS,
     );
 
     return array($data, $validator);
@@ -138,8 +143,9 @@ function plugin_settings_data_representation_3_6_5(
 $data){
   $func = function(
 $data  ){
-    list($d, $v) =
-      Handler::validate($data, "plugin_settings_data_representation_3_6_5.json");
+    list($d, $v) = Handler::validate(
+      $data,
+      "plugin_settings_data_representation_3_6_5.json"    );
     return /*UNSAFE_EXPR*/ array($d, $v);
   };
   //use the magic function

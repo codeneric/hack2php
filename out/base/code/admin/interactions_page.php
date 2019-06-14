@@ -10,10 +10,10 @@ class InteractionsPage {
 
   public static function add_page(){
 
-    add_submenu_page(
+    \add_submenu_page(
       'edit.php?post_type='.Configuration::get()['client_post_type'],
-      'PHMM '.__('Interactions'),
-      __('Interactions'),
+      'PHMM '.\__('Interactions'),
+      \__('Interactions'),
       'manage_options',
       self::page_name,
       array(self::class, 'render_page')    );

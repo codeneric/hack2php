@@ -14,11 +14,11 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Photography Management
- * Plugin URI:        phmm.codeneric.com
+ * Plugin URI:        https://codeneric.com/products/photography-management/
  * Description:       Provide your clients with links to (optionally password protected) photographs.
  * Version:           %%PLUGIN_VERSION%%
  * Author:            Codeneric
- * Author URI:        http://codeneric.com
+ * Author URI:        https://codeneric.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       photography-management

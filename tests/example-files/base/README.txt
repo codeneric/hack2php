@@ -2,7 +2,7 @@
 Contributors: denis_golovin, alex_schwabauer
 Tags: images, photo proofing, proof, photography, photographer, client, customer, password, password-protected, wedding, gallery, zip, best gallery plugin
 Requires at least: 3.6
-Tested up to: 4.9.4
+Tested up to: 5.2
 Requires PHP: 5.6
 Stable tag: {{version}} 
 License: GPLv2 or later

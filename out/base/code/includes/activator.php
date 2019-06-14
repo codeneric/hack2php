@@ -25,19 +25,19 @@ class Activator {
     // }
     \codeneric\phmm\base\admin\Main::register_client_post_type();
     \codeneric\phmm\base\admin\Main::register_project_post_type();
-    flush_rewrite_rules();
+    \flush_rewrite_rules();
 
-    $upload_dir = wp_upload_dir();
+    $upload_dir = \wp_upload_dir();
     $upload_dir = $upload_dir['basedir'].'/photography_management';
-    if (!file_exists($upload_dir)) {
-      mkdir($upload_dir);
+    if (!\file_exists($upload_dir)) {
+      \mkdir($upload_dir);
 
     }
-    if(function_exists('is_plugin_active') && !is_plugin_active('phmm-fast-images/phmm_fast_images.php')){ 
-      $htaccess_suc =
-      Photography_Management_Base_Generate_Htaccess("$upload_dir/.htaccess"); 
-    } 
-    
+    if (\function_exists('is_plugin_active') &&
+        !\is_plugin_active('phmm-fast-images/phmm_fast_images.php')) {
+      $htaccess_suc = \Photography_Management_Base_Generate_Htaccess(
+        "$upload_dir/.htaccess"      );
+    }
 
     Utils::get_plugin_id();
   }

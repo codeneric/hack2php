@@ -1,4 +1,4 @@
-<?hh //strict
+<?php //strict
 require_once plugin_dir_path(dirname(__FILE__)).'includes/exception.php';
 require_once plugin_dir_path(dirname(__FILE__)).'includes/error.php';
 require_once plugin_dir_path(dirname(__FILE__)).'../vendor/autoload.php';
@@ -58,4 +58,3 @@ require_once plugin_dir_path(dirname(__FILE__)).'admin/ajax/request.php';
 require_once plugin_dir_path(dirname(__FILE__)).'admin/admin.php';
 require_once plugin_dir_path(dirname(__FILE__)).'admin/ajax/endpoints.php';
 require_once plugin_dir_path(dirname(__FILE__)).'public/public.php';
-

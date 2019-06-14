@@ -4,16 +4,16 @@ use \codeneric\phmm\Configuration;
 use \codeneric\phmm\base\includes\Error;
 class SupportPage {
 
-  const page_name = 'support';
+  const page_name = 'phmm_support';
 
   public static function init(){}
 
   public static function add_page(){
 
-    add_submenu_page(
+    \add_submenu_page(
       'edit.php?post_type='.Configuration::get()['client_post_type'],
-      'PHMM '.__('Support'),
-      __('Support'),
+      'PHMM '.\__('Support'),
+      \__('Support'),
       'manage_options',
       self::page_name,
       array(self::class, 'render_page')    );
@@ -22,7 +22,7 @@ class SupportPage {
 
   public static function render_page(){
 
-    $title = "<h2>".__('Support')."</h2>";
+    $title = "<h2>".\__('Support')."</h2>";
 
     // $settings = self::getCurrentSettings();
 
@@ -30,7 +30,7 @@ class SupportPage {
 
     $fbJoin =
       "<strong>".
-      __(
+      \__(
         'Join our <a style=\'color: coral\' target=\'_blank\' href=\'https:\/\/www.facebook.com/groups/1529247670736165/\'>facebook group</a> to get immediate help or get in contact with other photographers using WordPress!',
         Configuration::get()['plugin_name']      ).
       "</strong>";

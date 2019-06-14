@@ -55,7 +55,7 @@ This project is in a very early stage, so you will probably encounter problems i
 # Getting started
 Clone this repository and run `hhvm composer.phar install`
 
-Compile a Hack file to PHP: `./bin/hack2php <hack-file>` 
+Compile a a folder with Hack files to PHP files: `./bin/hack2php -i "tests/example-files/*.php" -o out -b tests/example-files` 
 
 # Tests
 There is only one test (HackToPhpTest). It reads each Hack file from the example-files directory, compiles it to PHP and checks the PHP syntax for errors. If no error were found, the test succeeds. Otherwise it fails. 

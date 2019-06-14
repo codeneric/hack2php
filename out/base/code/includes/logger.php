@@ -17,11 +17,11 @@ class Logger {
       $customHandler =
         function() {
 
-          $upload_dir = wp_upload_dir();
+          $upload_dir = \wp_upload_dir();
 
           $upload_dir = $upload_dir['basedir'].'/photography_management';
-          if (!file_exists($upload_dir)) {
-            mkdir($upload_dir, 0777, true);
+          if (!\file_exists($upload_dir)) {
+            \mkdir($upload_dir, 0777, true);
           }
 
           $log_file = $upload_dir.'/phmm.log';
@@ -46,7 +46,7 @@ class Logger {
 
     } else {
 
-      self::$jsonOptions = JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT;
+      self::$jsonOptions = \JSON_UNESCAPED_SLASHES | \JSON_PRETTY_PRINT;
       AnalogLogger::handler(AnalogLogger\Handler\ChromeLogger::init());
 
     }
@@ -55,10 +55,10 @@ class Logger {
 
   private static function parseAdditionalInfo(
 $additional = null  ){
-    if (is_null($additional))
+    if (\is_null($additional))
       return "";
 
-    $additionalInfoString = json_encode($additional, self::$jsonOptions);
+    $additionalInfoString = \json_encode($additional, self::$jsonOptions);
 
     if ($additionalInfoString === false)
       return "";

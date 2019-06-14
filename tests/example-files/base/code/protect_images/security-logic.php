@@ -1,34 +1,26 @@
-<?hh //strict
-/**
- * Created by PhpStorm.
- * User: denis_000
- * Date: 25.04.2016
- * Time: 19:59
- */
-
+<?php //strict
 namespace codeneric\phmm\base\protect_images;
-use codeneric\phmm\base\globals\Superglobals;
-use codeneric\phmm\base\includes\Project;
-use codeneric\phmm\base\includes\Client;
-use codeneric\phmm\Utils;
-use codeneric\phmm\base\includes\Permission;
-use codeneric\phmm\base\includes\Error;
-use codeneric\phmm\enums\UserState;
-use codeneric\phmm\enums\ProjectState;
+use \codeneric\phmm\base\globals\Superglobals;
+use \codeneric\phmm\base\includes\Project;
+use \codeneric\phmm\base\includes\Client;
+use \codeneric\phmm\Utils;
+use \codeneric\phmm\base\includes\Permission;
+use \codeneric\phmm\base\includes\Error;
+use \codeneric\phmm\enums\UserState;
+use \codeneric\phmm\enums\ProjectState;
 
 require_once dirname(__FILE__).'/ZipStream/ZipStream.plain.php';
 
 class Main {
 
   public static function provide_file(
-    string $f,
-    string $filename,
-    ?int $project_id,
-    int $part = 0,
-  ): void {
+$f,
+$filename,
+$project_id,
+$part = 0  ){
 
-    while (ob_get_level() > 0) {
-      ob_end_clean();
+    while (\ob_get_level() > 0) {
+      \ob_end_clean();
     }
 
     if ($f === 'zip-all' || $f === 'zip-favs') {
@@ -36,7 +28,7 @@ class Main {
       //ini_set('memory_limit', '3M');
       // $part = $this->part;
 
-      $current_user = wp_get_current_user();
+      $current_user = \wp_get_current_user();
       $user_id = $current_user !== false ? $current_user->ID : 0;
 
       // $hook_args = array(
@@ -48,20 +40,17 @@ class Main {
 
       // do_action('codeneric/phmm/statistics/event', $hook_args);
 
-      $dir = dirname(__FILE__); //.../protect-images
-
-      invariant(
-        is_int($project_id),
+      $dir = \dirname(__FILE__); //.../protect-images
+\HH\invariant(        is_int($project_id),
         '%s',
-        new Error('Cannot download zip without a project_id!'),
-      );
+        new Error('Cannot download zip without a project_id!'));
 
       $total_parts = 0;
 
       $files = array();
       if ($f === 'zip-favs') {
         $client = Client::get_current();
-        $client_id = !is_null($client) ? $client['ID'] : 0;
+        $client_id = !\is_null($client) ? $client['ID'] : 0;
         $files = Project::get_zip_batch($project_id, $f, $part, $client_id);
 
         $total_parts =
@@ -75,14 +64,13 @@ class Main {
 
       # create a new zipstream object
       $display_part = $part + 1;
-      $title = get_the_title($project_id);
+      $title = \get_the_title($project_id);
       $zip = new \Photography_Management_Base_ZipStream(
         "$title ($display_part of $total_parts)".'.zip',
-        array('large_file_size' => 1),
-      );
-      http_response_code(200);
+        array('large_file_size' => 1)      );
+      \http_response_code(200);
       foreach ($files as $file) {
-        $zip->addFileFromPath(basename($file), $file);
+        $zip->addFileFromPath(\basename($file), $file);
       }
       $zip->finish();
 
@@ -93,109 +81,100 @@ class Main {
     $apply_watermark = false;
     $access_config = null;
     $client = Client::get_current();
-    if (!is_null($client) && is_int($project_id)) {
+    if (!\is_null($client) && is_int($project_id)) {
       $client_id = $client['ID'];
       $access_config =
         Client::get_project_configuration($client_id, $project_id);
 
     }
 
-    if (is_null($access_config) && is_int($project_id)) {
+    if (\is_null($access_config) && is_int($project_id)) {
       $access_config = Project::get_configuration($project_id);
     }
     $apply_watermark =
-      !is_null($access_config) ? $access_config['watermark'] : false;
+      !\is_null($access_config) ? $access_config['watermark'] : false;
 
     if ($apply_watermark &&
-        getimagesize($filename) !== false &&
-        has_action('codeneric/phmm/watermark')) { //image requested
+        \getimagesize($filename) !== false &&
+        \has_action('codeneric/phmm/watermark')) { //image requested
 
       $settings = \codeneric\phmm\base\admin\Settings::getCurrentSettings();
       $wms = $settings['watermark'];
-      if (!is_null($wms['image_id']) &&
-          !is_null($wms['position']) &&
-          !is_null($wms['scale'])) {
+      if (!\is_null($wms['image_id']) &&
+          !\is_null($wms['position']) &&
+          !\is_null($wms['scale'])) {
         $args = array('file' => $filename, 'wms' => $wms);
-        do_action('codeneric/phmm/watermark', $args);
+        \do_action('codeneric/phmm/watermark', $args);
         die();
       }
 
     }
 
-    $file = @fopen($filename, 'rb');
+    $file = @\fopen($filename, 'rb');
     $buffer = 1024 * 8;
     $mime = 'image/xyz';
-    if (function_exists('mime_content_type')) {
-      $mime = mime_content_type($filename);
+    if (\function_exists('mime_content_type')) {
+      $mime = \mime_content_type($filename);
     }
-    header('Content-Description: File Transfer');
+    \header('Content-Description: File Transfer');
     //        header('Content-Type: application/octet-stream');
     //        header('Content-Type: image/xyz');
-    header("Content-Type: $mime");
+    \header("Content-Type: $mime");
     //        header('Content-Disposition: attachment; filename="'.basename($filename).'"');
-    header('Content-Disposition: inline; filename="'.basename($filename).'"');
-    http_response_code(200);
-    while (!feof($file)) {
-      echo fread($file, $buffer);
-      flush();
+    \header('Content-Disposition: inline; filename="'.\basename($filename).'"');
+    \http_response_code(200);
+    while (!\feof($file)) {
+      echo \fread($file, $buffer);
+      \flush();
     }
-    fclose($file);
+    \fclose($file);
     die();
   }
 
   public static function file_belongs_to_attachment(
-    string $url,
-    int $attach_id,
-  ): bool {
-    $attach_url = wp_get_attachment_url($attach_id);
+$url,
+$attach_id  ){
+    $attach_url = \wp_get_attachment_url($attach_id);
     if ($attach_url === $url)
       return true;
     $sizes = Utils::get_intermediate_image_sizes();
     foreach ($sizes as $size) {
-      $data = wp_get_attachment_image_src($attach_id, $size);
+      $data = \wp_get_attachment_image_src($attach_id, $size);
       //            if($data === false)return false;
       if (is_array($data) &&
           Utils::get_protocol_relative_url($data[0]) === Utils::get_protocol_relative_url(
-            $url,
-          ))
+            $url          ))
         return true;
     }
     return false;
 
   }
 
-  private static function user_can_access_project(int $project_id): bool {
+  private static function user_can_access_project($project_id){
     $project_state = Permission::get_project_state($project_id);
     $client_state =
       Permission::get_client_state_wrt_project($project_state, $project_id);
     if ($project_state === ProjectState::Public_) {
       return true;
     }
-    return in_array($client_state, [UserState::Client, UserState::Guest]);
+    return \in_array($client_state, [UserState::Client, UserState::Guest]);
   }
 
   public static function user_can_access_file(
-    string $f,
-    ?int $attach_id,
-    ?int $project_id,
-  ): bool {
+$f,
+$attach_id,
+$project_id  ){
     //at this point, the user is permitted to access the specified client and project!
     if (Utils::is_current_user_admin())
       return true;
-    invariant(
-      is_int($attach_id),
+\HH\invariant(      is_int($attach_id),
       '%s',
       new Error(
-        'Current user is not an admin and the attach_id is not defnied, but only admins can load files without setting the project parameter.',
-      ),
-    );
-    invariant(
-      is_int($project_id),
+        'Current user is not an admin and the attach_id is not defnied, but only admins can load files without setting the project parameter.'      ));
+\HH\invariant(      is_int($project_id),
       '%s',
       new Error(
-        'Current user is not an admin and the project_id is not defnied, but only admins can load files without setting the project parameter.',
-      ),
-    );
+        'Current user is not an admin and the project_id is not defnied, but only admins can load files without setting the project parameter.'      ));
 
     $can_access = self::user_can_access_project($project_id);
 
@@ -204,12 +183,12 @@ class Main {
 
     $config = null;
     $current_client = Client::get_current();
-    if (!is_null($current_client)) {
+    if (!\is_null($current_client)) {
       $config =
         Client::get_project_configuration($current_client['ID'], $project_id);
     }
 
-    if (is_null($config)) {
+    if (\is_null($config)) {
       $config = Project::get_configuration($project_id);
     }
 
@@ -220,7 +199,7 @@ class Main {
         !($f === 'zip-favs') || $config['downloadable_favs'];
       return $can_download_all && $can_download_favs;
     } else {
-      $upload_url = wp_upload_dir();
+      $upload_url = \wp_upload_dir();
       $upload_url = $upload_url['baseurl'];
       $attach_url = "$upload_url/photography_management/".$f;
 
@@ -233,12 +212,16 @@ class Main {
           return true;
         }
       }
+      $thumbnail_id = Project::get_meta_thumbnail($project_id);
+      if ($thumbnail_id === $attach_id) {
+        return true;
+      }
       return false;
     }
 
   }
 
-  private function is_exposed_cover_image(): bool {
+  private function is_exposed_cover_image(){
     // $options = get_option('cc_photo_settings', array());
 
     // if(!empty($options['expose_cover_images'])){ // we have to check if the requested file is a cover image
@@ -257,10 +240,9 @@ class Main {
   }
 
   public static function user_is_permitted(
-    string $f,
-    ?int $attach_id,
-    ?int $project_id,
-  ): bool {
+$f,
+$attach_id,
+$project_id  ){
     $user_can_access_file =
       self::user_can_access_file($f, $attach_id, $project_id);
     // $is_exposed_cover_image = $this->is_exposed_cover_image();

@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker build -t codeneric/hhvm:latest .
+docker build -t codeneric/custom-transpiler:latest .

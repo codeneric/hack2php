@@ -8,7 +8,8 @@
  *
  */
 
-require './vendor/hh_autoload.php';
+// require dirname(__DIR__).'/vendor/hh_autoload.php';
+require '../vendor/hh_autoload.php';
 
 $shortopts = "";
 $shortopts .= "i:"; // Required value

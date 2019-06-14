@@ -1,1 +1,1 @@
-<?hh // strict // Silence is golden
+<?php //strict 

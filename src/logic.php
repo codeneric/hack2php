@@ -455,6 +455,21 @@ function sprinft(string $format, string $arg): string {
   return \str_replace(placeholder(), $arg, $format);
 }
 
+function apply_ast_filter(
+  EditableNode $node,
+  EditableNode $child,
+): EditableNode {
+  //UNSAFE
+  if (\file_exists('./ast_filters.php')) {
+    require_once('./ast_filters.php');
+    $filters = \Codeneric\Hack2PHP\Filters\get_filters();
+    foreach ($filters as $filter) {
+      $node = $filter($node, $child);
+    }
+  }
+  return $node;
+}
+
 function transpile(
   EditableNode $node,
   vec<EditableNode> $parents,
@@ -473,6 +488,7 @@ function transpile(
 
   $childs = $node->getChildren();
   foreach ($childs as $key => $child) {
+    $node = apply_ast_filter($node, $child);
     if ($child instanceof SafeMemberSelectionExpression) {
 
       $safe_member_object = $child->getObject()->getCode();
@@ -593,37 +609,13 @@ function transpile(
     }
 
     if ($child instanceof FunctionCallExpression) {
+
       $receiver = $child->getReceiver();
 
-      // if ($receiver instanceof NameToken) {
-      //   $text = $receiver->getText();
-      //   echo "\nNameToken: |$text|\n";
-      //   if ($text === 'invariant') {
-      //     // $code = '\\HH\\'.$child->getCode();
-      //     $args_list = $child->getArgumentList()?->getCode();
-      //     $sub_ast = ast_from_code(
-      //       "\\HH\\invariant($args_list)",
-      //     ); //removes leadning and trailing arrays
-      //     $node = $node->replace($child, $sub_ast);
-      //   }
-      // }
-
-      if (
-        $receiver instanceof QualifiedName || $receiver instanceof NameToken
-      ) {
-        // $text = $receiver->getParts()->getCode();
-        $fn = '';
-        // $a = $receiver->getParts();
-        $a = $receiver->getDescendantsOfType(EditableToken::class);
-        // \var_dump($a);
-        foreach ($a as $b) {
-
-          $fn .= $b->getText();
-
-        }
-        // echo "\QualifiedName: |$fn|\n";
-
-        if ($fn === 'invariant') {
+      if ($receiver instanceof NameToken) {
+        $text = $receiver->getText();
+        // echo "\nNameToken: |$text|\n";
+        if ($text === 'invariant') {
           // $code = '\\HH\\'.$child->getCode();
           $args_list = $child->getArgumentList()?->getCode();
           $sub_ast = ast_from_code(
@@ -631,18 +623,43 @@ function transpile(
           ); //removes leadning and trailing arrays
           $node = $node->replace($child, $sub_ast);
         }
-
-        // if ($fn === '\\__' || $fn === '__') {
-        //   $args_list = $child->getArgumentList();
-        //   if (!\is_null($args_list) && \count($args_list->getItems()) === 1) {
-        //     $args_list_code = $args_list->getCode();
-        //     $sub_ast = ast_from_code(
-        //       "$fn($args_list_code, 'photography-management')",
-        //     ); //removes leadning and trailing arrays
-        //     $node = $node->replace($child, $sub_ast);
-        //   }
-        // }
       }
+
+      // if (
+      //   $receiver instanceof QualifiedName || $receiver instanceof NameToken
+      // ) {
+      //   // $text = $receiver->getParts()->getCode();
+
+      //   $fn = '';
+      //   // $a = $receiver->getParts();
+      //   $a = $receiver->getDescendantsOfType(EditableToken::class);
+      //   // \var_dump($a);
+      //   foreach ($a as $b) {
+
+      //     $fn .= $b->getText();
+
+      //   }
+
+      //   if ($fn === 'invariant') {
+      //     // $code = '\\HH\\'.$child->getCode();
+      //     $args_list = $child->getArgumentList()?->getCode();
+      //     $sub_ast = ast_from_code(
+      //       "\\HH\\invariant($args_list)",
+      //     ); //removes leadning and trailing arrays
+      //     $node = $node->replace($child, $sub_ast);
+      //   }
+
+      //   // if ($fn === '\\__' || $fn === '__') {
+      //   //   $args_list = $child->getArgumentList();
+      //   //   if (!\is_null($args_list) && \count($args_list->getItems()) === 1) {
+      //   //     $args_list_code = $args_list->getCode();
+      //   //     $sub_ast = ast_from_code(
+      //   //       "$fn($args_list_code, 'photography-management')",
+      //   //     ); //removes leadning and trailing arrays
+      //   //     $node = $node->replace($child, $sub_ast);
+      //   //   }
+      //   // }
+      // }
 
 
     }

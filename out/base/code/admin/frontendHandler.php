@@ -624,7 +624,7 @@ $posts  ){
     return \array_map(
       function($post) {
         $post->post_title = $post->post_title === ""
-          ? \__(self::POST_EMPTY_TITLE_FILL).' #'.$post->ID
+          ? \__(self::POST_EMPTY_TITLE_FILL, 'photography-management').' #'.$post->ID
           : $post->post_title;
 
         return $post;
@@ -664,11 +664,11 @@ $column_name  ){
 
     $cols = array(
       'cb' => '<input type="checkbox" />',
-      'title' => \__('Name'),
+      'title' => \__('Name', 'photography-management'),
       'projects' => \__('Projects', Configuration::get()['plugin_name']),
-      'email' => \__('Email'),
-      'shortcode' => \__('Shortcode'),
-      'date' => \__('Date'),
+      'email' => \__('Email', 'photography-management'),
+      'shortcode' => \__('Shortcode', 'photography-management'),
+      'date' => \__('Date', 'photography-management'),
     );
 
     return $cols;
@@ -677,10 +677,10 @@ $column_name  ){
 
     $cols = array(
       'cb' => '<input type="checkbox" />',
-      'title' => \__('Project Name'),
-      'categories' => \__('Categories'),
-      'shortcode' => \__('Shortcode'),
-      'date' => \__('Date'),
+      'title' => \__('Project Name', 'photography-management'),
+      'categories' => \__('Categories', 'photography-management'),
+      'shortcode' => \__('Shortcode', 'photography-management'),
+      'date' => \__('Date', 'photography-management'),
     );
 
     return $cols;
@@ -784,11 +784,10 @@ $post_id  ){
         array('post_type' => 'client', 'page' => 'options'),
         $editurl      );
       $class = 'notice notice-error';
-      $message = \__(
-        'The chosen page template in Photography Management -> Settings does not exist. Have you changed your theme recently? <br />Please <a href="'.
+      $message = \__(        'The chosen page template in Photography Management -> Settings does not exist. Have you changed your theme recently? <br />Please <a href="'.
         $link.
-        '">update</a> the option.'      );
-      $submessage = \__('');
+        '">update</a> the option.'      , 'photography-management');
+      $submessage = \__('', 'photography-management');
 
       /* UNSAFE_EXPR */
       printf(

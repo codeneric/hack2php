@@ -12,8 +12,8 @@ class PremiumPage {
 
     \add_submenu_page(
       'edit.php?post_type='.Configuration::get()['client_post_type'],
-      'PHMM '.\__('Premium'),
-      \__('Premium'),
+      'PHMM '.\__('Premium', 'photography-management'),
+      \__('Premium', 'photography-management'),
       'manage_options',
       self::page_name,
       array(self::class, 'render_page')    );
@@ -22,7 +22,7 @@ class PremiumPage {
 
   public static function render_page(){
 
-    $title = "<h2>".\__('Premium Page')."</h2>";
+    $title = "<h2>".\__('Premium Page', 'photography-management')."</h2>";
 
     // $settings = self::getCurrentSettings();
 

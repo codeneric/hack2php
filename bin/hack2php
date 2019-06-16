@@ -51,9 +51,9 @@ $options = getopt($shortopts);
 
 
 $help_text = "Required parameters: -i, -o\n".
-  "-i: input pattern. Has to be relative and in quotes!\n".
+  "-i: input directoy\n".
   "-o: output directory.\n".
-  "-b: base directory.\n".
+  // "-b: base directory.\n".
   "\n";
 
 if (\array_key_exists('h', $options)) {
@@ -69,17 +69,34 @@ if (!\array_key_exists('o', $options) || !\is_string($options['o'])) {
   echo "Parameter -o has to be defined exactly once. Use -h for help.\n";
   exit;
 }
-if (!\array_key_exists('b', $options) || !\is_string($options['b'])) {
-  $options['b'] = getcwd();
+// if (!\array_key_exists('b', $options) || !\is_string($options['b'])) {
+//   $options['b'] = getcwd();
+// }
+
+
+// function rglob(string $pattern, int $flags = 0): array<string> {
+//   $files = \glob($pattern, $flags);
+//   foreach (
+//     \glob(\dirname($pattern).'/*', \GLOB_ONLYDIR | \GLOB_NOSORT) as $dir
+//   ) {
+//     $files = \array_merge($files, rglob($dir.'/'.\basename($pattern), $flags));
+//   }
+//   return $files;
+// }
+function _join_paths(string $a, string $b): string {
+  return implode('/', array_filter(explode('/', "$a/$b")));
 }
 
-
 function rglob(string $pattern, int $flags = 0): array<string> {
-  $files = \glob($pattern, $flags);
-  foreach (
-    \glob(\dirname($pattern).'/*', \GLOB_ONLYDIR | \GLOB_NOSORT) as $dir
-  ) {
-    $files = \array_merge($files, rglob($dir.'/'.\basename($pattern), $flags));
+  $p1 = _join_paths($pattern, '/*.php');
+  $p2 = _join_paths($pattern, '/*');
+  $files = \glob($p1, $flags);
+  foreach (\glob($p2, \GLOB_ONLYDIR | \GLOB_NOSORT) as $dir) {
+    // if ($dir !== $pattern) {
+    // }
+    $files = \array_merge($files, rglob($dir, $flags));
+
+    // echo $dir;
   }
   return $files;
 }
@@ -91,7 +108,10 @@ $abs_input_path = \dirname($options['i']);
 foreach ($files as $filename) {
   echo "compiling $filename to ";
   $php = \Codeneric\run($filename);
-  $out_path = str_replace($options['b'], $options['o'], $filename);
+  // $out_path = str_replace($options['b'], $options['o'], $filename);
+  // $out_path = str_replace($options['i'], $options['o'], $filename);
+  $out_path = str_replace($options['i'], '', $filename);
+  $out_path = _join_paths($options['o'], $out_path);
   $out_dir = \dirname($out_path);
   if (!file_exists($out_dir)) {
     mkdir($out_dir, 0777, true);

@@ -9,7 +9,7 @@
  *
  */
 
-namespace Facebook\HHAST\__Private;
+// namespace Facebook\HHAST\__Private;
 
 $root = realpath(__DIR__.'/..');
 $found_autoloader = false;
@@ -33,19 +33,17 @@ if (!$found_autoloader) {
   exit(1);
 }
 
-// LinterCLI::main();
 
 require_once $root.'/src/logic.php';
 
 $shortopts = "";
 $shortopts .= "i:"; // Required value
 $shortopts .= "o:"; // Required value
-$shortopts .= "b:"; // Required value
 // $shortopts .= "v::"; // Optional value
 $shortopts .= "h"; // These options do not accept values
 
 
-getopt($shortopts);
+// getopt($shortopts);
 
 $options = getopt($shortopts);
 
@@ -69,20 +67,7 @@ if (!\array_key_exists('o', $options) || !\is_string($options['o'])) {
   echo "Parameter -o has to be defined exactly once. Use -h for help.\n";
   exit;
 }
-// if (!\array_key_exists('b', $options) || !\is_string($options['b'])) {
-//   $options['b'] = getcwd();
-// }
 
-
-// function rglob(string $pattern, int $flags = 0): array<string> {
-//   $files = \glob($pattern, $flags);
-//   foreach (
-//     \glob(\dirname($pattern).'/*', \GLOB_ONLYDIR | \GLOB_NOSORT) as $dir
-//   ) {
-//     $files = \array_merge($files, rglob($dir.'/'.\basename($pattern), $flags));
-//   }
-//   return $files;
-// }
 function _join_paths(string $a, string $b): string {
   return implode('/', array_filter(explode('/', "$a/$b")));
 }
@@ -108,8 +93,6 @@ $abs_input_path = \dirname($options['i']);
 foreach ($files as $filename) {
   echo "compiling $filename to ";
   $php = \Codeneric\run($filename);
-  // $out_path = str_replace($options['b'], $options['o'], $filename);
-  // $out_path = str_replace($options['i'], $options['o'], $filename);
   $out_path = str_replace($options['i'], '', $filename);
   $out_path = _join_paths($options['o'], $out_path);
   $out_dir = \dirname($out_path);

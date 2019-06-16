@@ -49,9 +49,16 @@ final class HackToPHPTest extends \PHPUnit\Framework\TestCase {
       \file_put_contents($php_file_path, $php);
 
       // echo "Testing $filename...\n"; 
-      $res = \exec("cat $php_file_path | php -l ");
+      // $res = \exec("cat $php_file_path | php -l ");
+      $res = \exec("php -l $php_file_path");
+      
+      // $this->assertSame(
+      //   "No syntax errors detected in -",
+      //   $res,
+      //   "Syntax error in file $filename:\n$res\n$php",
+      // );
       $this->assertSame(
-        "No syntax errors detected in -",
+        null,
         $res,
         "Syntax error in file $filename:\n$res\n$php",
       );

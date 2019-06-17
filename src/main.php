@@ -30,7 +30,7 @@ function get_cli_args(): array<string, string> {
   $shortopts = "";
   $shortopts .= "i:"; // Required value
   $shortopts .= "o:"; // Required value
-  // $shortopts .= "v::"; // Optional value
+  //   $shortopts .= "e::"; // Optional value
   $shortopts .= "h"; // These options do not accept values
 
 
@@ -42,7 +42,7 @@ function get_cli_args(): array<string, string> {
   $help_text = "Required parameters: -i, -o\n".
     "-i: input directoy\n".
     "-o: output directory.\n".
-    // "-b: base directory.\n".
+    // "-e: path to extension hack file.\n".
     "\n";
   /* HH_IGNORE_ERROR[1002] */
   if (\array_key_exists('h', $options)) {
@@ -58,6 +58,9 @@ function get_cli_args(): array<string, string> {
     echo "Parameter -o has to be defined exactly once. Use -h for help.\n";
     exit();
   }
+  //   if (!\array_key_exists('e', $options) || !\is_string($options['e'])) {
+  //     $options['e'] = null;
+  //   }
 
   return $options;
 }
@@ -81,23 +84,37 @@ function rglob(string $pattern, int $flags = 0): array<string> {
   return $files;
 }
 
-function is_cache_stale(string $file, string $cache_dir): bool {
+function get_cache_hash(string $file, ?string $ext_file = null): string {
   $ftime = \filemtime($file);
-  if ($ftime === false) {
-    return true;
-  }
-  $cache_hash = \md5("$file:$ftime");
+  $ftime_ext_file = \is_null($ext_file) ? 0 : \filemtime($ext_file);
+  $cache_hash = \md5("$file:$ftime:$ftime_ext_file");
+  return $cache_hash;
+}
+
+function is_cache_stale(
+  string $file,
+  string $cache_dir,
+  ?string $ext_file = null,
+): bool {
+  $cache_hash = get_cache_hash($file, $ext_file);
   return !\file_exists('/'._join_paths($cache_dir, $cache_hash));
 }
 
-function get_cache(string $file, string $cache_dir): string {
-  $ftime = \filemtime($file);
-  $cache_hash = \md5("$file:$ftime");
+function get_cache(
+  string $file,
+  string $cache_dir,
+  ?string $ext_file = null,
+): string {
+  $cache_hash = get_cache_hash($file, $ext_file);
   return file_get_contents('/'._join_paths($cache_dir, $cache_hash));
 }
-function put_cache(string $content, string $file, string $cache_dir): void {
-  $ftime = \filemtime($file);
-  $cache_hash = \md5("$file:$ftime");
+function put_cache(
+  string $content,
+  string $file,
+  string $cache_dir,
+  ?string $ext_file = null,
+): void {
+  $cache_hash = get_cache_hash($file, $ext_file);
   $c_path = '/'._join_paths($cache_dir, $cache_hash);
   // echo "\n$c_path\n";
   file_put_contents($c_path, $content);

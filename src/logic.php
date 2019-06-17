@@ -459,15 +459,19 @@ function apply_ast_filter(
   EditableNode $node,
   EditableNode $child,
 ): EditableNode {
-  //UNSAFE
-  if (\file_exists('./ast_filters.php')) {
-    require_once('./ast_filters.php');
-    $filters = \Codeneric\Hack2PHP\Filters\get_filters();
-    foreach ($filters as $filter) {
-      $node = $filter($node, $child);
+  $ext_paths = \codeneric\util\get_extension_paths();
+  foreach ($ext_paths as $path) {
+    //UNSAFE
+    if (\file_exists($path)) {
+      require_once($path);
+      $filters = \Codeneric\Hack2PHP\Filters\get_filters();
+      foreach ($filters as $filter) {
+        $node = $filter($node, $child);
+      }
     }
   }
   return $node;
+
 }
 
 function transpile(

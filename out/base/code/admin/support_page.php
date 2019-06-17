@@ -12,8 +12,8 @@ class SupportPage {
 
     \add_submenu_page(
       'edit.php?post_type='.Configuration::get()['client_post_type'],
-      'PHMM '.\__('Support', 'photography-management'),
-      \__('Support', 'photography-management'),
+      'PHMM '.\__('Support'),
+      \__('Support'),
       'manage_options',
       self::page_name,
       array(self::class, 'render_page')    );
@@ -22,7 +22,7 @@ class SupportPage {
 
   public static function render_page(){
 
-    $title = "<h2>".\__('Support', 'photography-management')."</h2>";
+    $title = "<h2>".\__('Support')."</h2>";
 
     // $settings = self::getCurrentSettings();
 

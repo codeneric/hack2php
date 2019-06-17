@@ -337,7 +337,7 @@ $data  ){
     if (\is_string($manager_email)) {
       //TODO: send mail to $manager_email!
       $to = $manager_email;
-      $subject = \__('Please review this sign up:', 'photography-management').
+      $subject = \__('Please review this sign up:').
         " {$data['first_name']} {$data['last_name']}";
       $accept_link = self::get_guest_review_link(
         $post_id,
@@ -350,10 +350,11 @@ $data  ){
       //   Accpet: {$accept_link}\n
       //   Decline: {$decline_link}\n
       //   ";
-      $body = \__(        "Hi,\nshould %s get access to your photos?\n
+      $body = \__(
+        "Hi,\nshould %s get access to your photos?\n
         Accpet: %s\n
         Decline: %s\n
-        "      , 'photography-management');
+        "      );
 
       $body = (string)/*UNSAFE_EXPR*/\sprintf(
         $body,

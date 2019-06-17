@@ -12,8 +12,8 @@ class InteractionsPage {
 
     \add_submenu_page(
       'edit.php?post_type='.Configuration::get()['client_post_type'],
-      'PHMM '.\__('Interactions', 'photography-management'),
-      \__('Interactions', 'photography-management'),
+      'PHMM '.\__('Interactions'),
+      \__('Interactions'),
       'manage_options',
       self::page_name,
       array(self::class, 'render_page')    );

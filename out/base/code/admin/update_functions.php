@@ -50,7 +50,7 @@ class FunctionContainer {
 
     \add_role(
       "phmm_client",
-      \__('PhMm Client', 'photography-management'),
+      \__('PhMm Client'),
       array(
         'read' => true, // true allows this capability
         'edit_posts' => false,
@@ -377,7 +377,7 @@ class FunctionContainer {
 
     \add_role(
       "phmm_guest",
-      \__('PHMM Guest', 'photography-management'),
+      \__('PHMM Guest'),
       array(
         'read' => true, // true allows this capability
         'edit_posts' => false,

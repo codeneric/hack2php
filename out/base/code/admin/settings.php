@@ -160,8 +160,8 @@ $options  ){
 
     \add_submenu_page(
       'edit.php?post_type='.Configuration::get()['client_post_type'],
-      'PHMM '.\__('Settings', 'photography-management'),
-      \__('Settings', 'photography-management'),
+      'PHMM '.\__('Settings'),
+      \__('Settings'),
       'manage_options',
       self::page_name,
       array(self::class, 'render_add_submenu_page')    );
@@ -170,7 +170,7 @@ $options  ){
 
   public static function render_add_submenu_page(){
 
-    $title = "<h2>".\__('Settings', 'photography-management')."</h2>";
+    $title = "<h2>".\__('Settings')."</h2>";
 
     // $settings = self::getCurrentSettings();
 

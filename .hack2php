@@ -1,0 +1,10 @@
+{
+    "filters": [
+        {
+            "name": "custom i18n",
+            "description": "Add text-domain parameter to WP's i18n function.",
+            "path": "./ast_filter.php",
+            "config": {}
+        }
+    ]
+}

@@ -401,22 +401,25 @@ $shortcode  ){
     // if (post_password_required())
     //   return $content;
 
-    $noAccessHTML = "<h1>".\__("No Access", 'photography-management')."<h1>";
+    $noAccessHTML = "<h1>".\__("No Access")."<h1>";
     $pending_guest_review_HTML =
       "<h3 style=\"background-color: rgba(253, 187, 0, 0.3);\">".
-      \__(        "Your account is under review. You will get access to the photos as soon as your account was approved. Please come back later!"      , 'photography-management').
+      \__(
+        "Your account is under review. You will get access to the photos as soon as your account was approved. Please come back later!"      ).
       "</h3>";
     $accpeted_guest_request_HTML =
       "<h3 style=\"background-color: rgba(0, 250, 0, 0.3);\">".
-      \__(        "This account has been approved! The user can access the galleries now!"      , 'photography-management').
+      \__(
+        "This account has been approved! The user can access the galleries now!"      ).
       "</h3>";
     $declined_guest_request_HTML =
       "<h3 style=\"background-color: rgba(0, 0, 250, 0.3);\">".
-      \__(        "This account has been declined! The user cannot access the galleries!"      , 'photography-management').
+      \__(
+        "This account has been declined! The user cannot access the galleries!"      ).
       "</h3>";
     $not_permitted_guest_request_HTML =
       "<h3 style=\"background-color: rgba(253, 0, 0, 0.3);\">".
-      \__("You are not allowed to review this guest.", 'photography-management').
+      \__("You are not allowed to review this guest.").
       "</h3>";
 
     $adminNoticeHTML = "<style>@keyframes slideInFromBottom {
@@ -429,7 +432,8 @@ $shortcode  ){
       }</style>".
       "<div id='cc-phmm-pfe-admin-notice' style=' transform: translateY(100%); animation:slideInFromBottom 1s ease-in-out forwards;  animation-delay: 2s; background:#ecf0f1; padding: 10px 0; text-align:center;border:1px solid rgba(0,0,0,0.1); left:0; position:fixed; bottom:0; width:100%; z-index:100000;'><h3 style='margin:0;margin-bottom:10px;'>".
       "<strong>PHMM: </strong>".
-      \__(        "You view the project as an admin. To verify the project password protection, open this page in an incognito window."      , 'photography-management').
+      \__(
+        "You view the project as an admin. To verify the project password protection, open this page in an incognito window."      ).
       "</h3><span style='background:#7f8c8d; margin: 5px; padding:5px; cursor:pointer; color: #ecf0f1;' id='cc-phmm-pfe-admin-notice-close'>Ok, close</span></div>
       <script>
         document.getElementById('cc-phmm-pfe-admin-notice-close').onclick = function() {
@@ -518,13 +522,13 @@ $shortcode  ){
             "border:1px solid rgba(0,0,0,0.15); padding: 1em;margin: 0.5em;";
           $html = "<div style='$wrapStyle'>".
             "<h3>".
-            \__("Guest login", 'photography-management').
+            \__("Guest login").
             "</h3>".
             $pwdForm.
             "</div>".
             "<div style='$wrapStyle'>".
             "<h3>".
-            \__("Client login", 'photography-management').
+            \__("Client login").
             "</h3>".
             $loginForm.
             "</div>";
@@ -566,7 +570,8 @@ $shortcode  ){
           return self::attach_shortcode($content, Shortcodes::PORTAL);
         case PortalDisplay::AdminNotice:
           $replacement = "<h1>".
-            \__(              "You are logged in as admin. Logout to see the client login form and login as client to see the redirection"            , 'photography-management').
+            \__(
+              "You are logged in as admin. Logout to see the client login form and login as client to see the redirection"            ).
             "</h1>";
           return self::replace_shortcode_or_append(
             $content,
@@ -644,7 +649,7 @@ $client_id  ){
 
   public static function remove_protected_string($default){
     if (self::is_client_page() || self::is_project_page())
-      return \__('%s', 'photography-management');
+      return \__('%s');
 
     return $default;
   }
@@ -734,31 +739,31 @@ $client_id  ){
 
     $fields = array(
       array(
-        'label' => \__("First Name", 'photography-management'),
+        'label' => \__("First Name"),
         'id' => 'codeneric_phmm_registration_first_name',
         'name' => 'first_name',
         'type' => 'text',
       ),
       array(
-        'label' => \__("Last Name", 'photography-management'),
+        'label' => \__("Last Name"),
         'id' => 'codeneric_phmm_registration_last_name',
         'name' => 'last_name',
         'type' => 'text',
       ),
       array(
-        'label' => \__("Username", 'photography-management'),
+        'label' => \__("Username"),
         'id' => 'codeneric_phmm_registration_user_login',
         'name' => 'user_login',
         'type' => 'text',
       ),
       array(
-        'label' => \__("Password", 'photography-management'),
+        'label' => \__("Password"),
         'id' => 'codeneric_phmm_registration_user_pass',
         'name' => 'user_pass',
         'type' => 'password',
       ),
       array(
-        'label' => \__("Email", 'photography-management'),
+        'label' => \__("Email"),
         'id' => 'codeneric_phmm_registration_user_email',
         'name' => 'user_email',
         'type' => 'text',
@@ -773,36 +778,37 @@ $client_id  ){
 
     $html = "<div style='$wrapStyle'>".
       "<h3>".
-      \__("Client login", 'photography-management').
+      \__("Client login").
       "</h3>".
       $loginForm.
       "</div>".
       "<div style='$wrapStyle'>".
       '<form name="codeneric_registration_form" id="codeneric_registration_form" action="/" method="post">'.
       "<h3>".
-      \__("Registration", 'photography-management').
+      \__("Registration").
       "</h3>".
       '<p><label for="codeneric_phmm_registration_code">'.
-      \__("Registration Code", 'photography-management').
+      \__("Registration Code").
       $x.
       '</label> 
       <input type="text" name="code" id="codeneric_phmm_registration_code" required></p>'.
 
       '<p> 
       <button type="button" id="codeneric_phmm_registration_code_check" />'.
-      \__("Check", 'photography-management').
+      \__("Check").
       '</button></p>'.
 
 
       '<div id="codeneric_phmm_registration_client_form" style="display:none;">'.
 
       '<p>'.
-      \__(        'Awesome! After your registration you will have access to these projects:'      , 'photography-management').
+      \__(
+        'Awesome! After your registration you will have access to these projects:'      ).
       '<span id="codeneric_phmm_registration_for_projects" ></span></p>'.
       $fields_div.
       '<p> 
       <input type="submit" id="codeneric_phmm_registration_submit" value="'.
-      \__("Sign up", 'photography-management').
+      \__("Sign up").
       '"></p>'.
       '</from>'.
       "</div>".

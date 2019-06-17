@@ -86,13 +86,45 @@ function rglob(string $pattern, int $flags = 0): array<string> {
   return $files;
 }
 
+function is_cache_stale(string $file, string $cache_dir): bool {
+  $ftime = \filemtime($file);
+  if ($ftime === false) {
+    return true;
+  }
+  $cache_hash = \md5("$file:$ftime");
+  return !\file_exists('/'._join_paths($cache_dir, $cache_hash));
+}
+
+function get_cache(string $file, string $cache_dir): string {
+  $ftime = \filemtime($file);
+  $cache_hash = \md5("$file:$ftime");
+  return file_get_contents('/'._join_paths($cache_dir, $cache_hash));
+}
+function put_cache(string $content, string $file, string $cache_dir): void {
+  $ftime = \filemtime($file);
+  $cache_hash = \md5("$file:$ftime");
+  $c_path = '/'._join_paths($cache_dir, $cache_hash);
+  // echo "\n$c_path\n";
+  file_put_contents($c_path, $content);
+}
+
 
 $files = rglob($options['i']);
 $abs_input_path = \dirname($options['i']);
 
+$cache_dir = '/hack2php-cache';
+if (!\file_exists($cache_dir)) {
+  \mkdir($cache_dir);
+}
+
 foreach ($files as $filename) {
   echo "compiling $filename to ";
-  $php = \Codeneric\run($filename);
+  if (is_cache_stale($filename, $cache_dir)) {
+    $php = \Codeneric\run($filename);
+    put_cache($php, $filename, $cache_dir);
+  } else {
+    $php = get_cache($filename, $cache_dir);
+  }
   $out_path = str_replace($options['i'], '', $filename);
   $out_path = _join_paths($options['o'], $out_path);
   $out_dir = \dirname($out_path);

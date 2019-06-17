@@ -460,15 +460,16 @@ function apply_ast_filter(
   EditableNode $child,
 ): EditableNode {
   $ext_paths = \codeneric\util\get_extension_paths();
+  // \var_dump($ext_paths);
   foreach ($ext_paths as $path) {
     //UNSAFE
-    if (\file_exists($path)) {
-      require_once($path);
-      $filters = \Codeneric\Hack2PHP\Filters\get_filters();
-      foreach ($filters as $filter) {
-        $node = $filter($node, $child);
-      }
+    invariant(\file_exists($path), "The extension file $path could not be found!");
+    require_once($path);
+    $filters = \Codeneric\Hack2PHP\Filters\get_filters();
+    foreach ($filters as $filter) {
+      $node = $filter($node, $child);
     }
+  
   }
   return $node;
 

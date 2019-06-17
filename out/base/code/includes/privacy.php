@@ -76,7 +76,7 @@ $page = 1  ){
 $exporters  ){
 
     $exporters[\codeneric\phmm\Configuration::get()['plugin_name']] = array(
-      'exporter_friendly_name' => \__('Photography Management Plugin'),
+      'exporter_friendly_name' => \__('Photography Management Plugin', 'photography-management'),
       'callback' => [Privacy::class, 'export_item'],
     );
     return $exporters;

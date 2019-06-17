@@ -93,22 +93,25 @@ function tempdir(): string {
 function get_extension_paths(): array<string> {
   $res = [];
   if (\file_exists('./.hack2php')) {
-      
+    // echo "FOUND CONFIG";
+
     // require_once('./ast_filters.php');
     $config_json = \file_get_contents('./.hack2php');
     $config = \json_decode($config_json, true);
     if (
-      \array_key_exists('extensions', $config) &&
-      \is_array($config['extensions'])
+      \array_key_exists('filters', $config) && \is_array($config['filters'])
     ) {
-      foreach ($config['extensions'] as $ext) {
+      foreach ($config['filters'] as $ext) {
         invariant(
           \array_key_exists('path', $ext),
           'An extension without a path was defined!',
         );
         $res[] = (string)$ext['path'];
       }
-    } 
+    }
+  } else {
+    // echo "NOT FOUND CONFIG";
+
   }
   return $res;
 }
